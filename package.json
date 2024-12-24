@@ -9,6 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/core": "^2.10.4",
+    "@tiptap/extension-bullet-list": "^2.10.4",
+    "@tiptap/extension-list-item": "^2.10.4",
+    "@tiptap/extension-ordered-list": "^2.10.4",
+    "@tiptap/extension-paragraph": "^2.10.4",
+    "@tiptap/html": "^2.10.4",
+    "@tiptap/react": "^2.10.4",
+    "@tiptap/starter-kit": "^2.10.4",
     "next": "15.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -16,6 +24,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
