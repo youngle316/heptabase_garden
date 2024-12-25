@@ -12,7 +12,20 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      writingMode: {
+        'vertical-rl': 'vertical-rl',
+      },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    ({ addUtilities }: any) => {
+      addUtilities({
+        '.writing-vertical-rl': {
+          'writing-mode': 'vertical-rl',
+        },
+      });
+    },
+  ],
 } satisfies Config;

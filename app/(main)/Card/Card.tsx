@@ -45,7 +45,7 @@ export default function CardComponent({
 
   return (
     <div
-      className="prose !max-w-[580px] max-h-screen w-[580px] overflow-y-auto p-4"
+      className="prose h-screen w-full overflow-y-auto px-4 py-8 md:min-w-[550px] md:max-w-[580px]"
       data-card-id={genCardId()}
     >
       <CardContent cards={cards} htmlContent={htmlContent} />

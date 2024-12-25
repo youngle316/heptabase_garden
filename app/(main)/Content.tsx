@@ -1,11 +1,14 @@
 "use client";
 
 import { useCardIdNums } from "@/store/heptabase";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Card from "./Card/Card";
+import ClosedCard from "./Card/ClosedCard";
 
 export default function Content({ cards }: { cards: Card[] }) {
   const { cardIdNums, setCardIdNums } = useCardIdNums();
+  const [visibleCards, setVisibleCards] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -27,6 +30,8 @@ export default function Content({ cards }: { cards: Card[] }) {
       setCardIdNums(cardIds);
     };
 
+    handleUrlChange();
+
     window.addEventListener("urlchange", handleUrlChange);
     window.addEventListener("popstate", handleUrlChange);
 
@@ -44,6 +49,32 @@ export default function Content({ cards }: { cards: Card[] }) {
     }
   }, [setCardIdNums]);
 
+  useEffect(() => {
+    const calculateVisibleCards = () => {
+      const cardWidth = 580;
+      const padding = 16;
+      const gap = 16;
+      const windowWidth = window.innerWidth;
+      const maxCards = Math.floor(
+        (windowWidth - padding * 2) / (cardWidth + gap)
+      );
+      setVisibleCards(Math.min(maxCards, cardIdNums.length));
+    };
+
+    const calculateIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    calculateVisibleCards();
+    calculateIsMobile();
+    window.addEventListener("resize", calculateVisibleCards);
+    window.addEventListener("orientationchange", calculateIsMobile);
+    return () => {
+      window.removeEventListener("resize", calculateVisibleCards);
+      window.removeEventListener("orientationchange", calculateIsMobile);
+    };
+  }, [cardIdNums.length]);
+
   const getCardContentByCardId = (cardId: string) => {
     return cards.find((card) => card.id === cardId)?.content || "";
   };
@@ -56,26 +87,46 @@ export default function Content({ cards }: { cards: Card[] }) {
     return cards.find((card) => card.title === cardName)?.id || "";
   };
 
+  const getCardTitleByCardId = (cardId: string) => {
+    return cards.find((card) => card.id === cardId)?.title || "";
+  };
+
   return (
-    <div className="mx-5 mt-5 flex justify-center gap-4 md:mx-auto">
+    <div className="flex justify-center gap-8">
       {cardIdNums.length > 0 ? (
-        cardIdNums.map((cardId, index) => {
-          const content = getCardContentByCardId(cardId);
-          if (!content) return null;
-          if (index !== cardIdNums.length - 1) {
-            return (
-              <>
-                <div key={cardId} className="hidden md:flex">
-                  <Card cards={cards} content={content} />
-                </div>
-                <div className="hidden h-screen w-[1px] bg-zinc-200 md:flex" />
-              </>
-            );
-          }
-          return <Card cards={cards} content={content} key={cardId} />;
-        })
+        <>
+          {isMobile ? (
+            <>
+              {cardIdNums.slice(-1).map((cardId) => {
+                const content = getCardContentByCardId(cardId);
+                if (!content) return null;
+                return <Card key={cardId} cards={cards} content={content} />;
+              })}
+            </>
+          ) : (
+            <>
+              <div className="flex">
+                {cardIdNums.slice(0, -visibleCards).map((cardId, index) => (
+                  <ClosedCard
+                    key={cardId}
+                    title={getCardTitleByCardId(cardId)}
+                    cardId={cardId}
+                    index={index}
+                  />
+                ))}
+              </div>
+
+              {cardIdNums.slice(-visibleCards).map((cardId) => (
+                <Card
+                  key={cardId}
+                  cards={cards}
+                  content={getCardContentByCardId(cardId)}
+                />
+              ))}
+            </>
+          )}
+        </>
       ) : (
-        // if no cardId, show the about card
         <Card cards={cards} content={getCardContentByName("About")} />
       )}
     </div>

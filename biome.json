@@ -21,6 +21,9 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "a11y": {
+        "useKeyWithClickEvents": "off"
+      },
       "nursery": {
         "useSortedClasses": {
           "level": "error",

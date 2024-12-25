@@ -19,7 +19,7 @@ export default async function Home() {
   const cardsWithParentId = addParentIdToContent(data?.data?.cards);
 
   return (
-    <div>
+    <div className="h-full w-full md:mx-auto md:overflow-y-hidden">
       {data ? (
         <>
           {/* <Navbar /> */}
