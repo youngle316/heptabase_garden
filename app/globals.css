@@ -29,7 +29,11 @@ body {
     border-bottom: 1px solid var(--foreground);
   }
 
+  .prose a {
+    @apply text-blue-500 cursor-pointer underline-offset-4 underline;
+  }
+
   .card {
-    @apply text-blue-500 cursor-pointer underline-offset-2 underline hover:text-blue-600;
+    @apply text-blue-500 cursor-pointer underline-offset-4 underline decoration-zinc-300;
   }
 }
