@@ -1,9 +1,16 @@
 "use client";
 
+import { SEO } from "@/config";
 import { useCardIdNums } from "@/store/heptabase";
+import type { Metadata } from "next/types";
 import { useEffect, useState } from "react";
 import Card from "./Card/Card";
 import ClosedCard from "./Card/ClosedCard";
+
+export const metadata: Metadata = {
+  title: "数字花园🌿",
+  description: "use heptabase to build your digital garden",
+};
 
 export default function Content({ cards }: { cards: Card[] }) {
   const { cardIdNums, setCardIdNums } = useCardIdNums();
@@ -28,6 +35,14 @@ export default function Content({ cards }: { cards: Card[] }) {
       const params = new URLSearchParams(window.location.search);
       const cardIds = params.getAll("cardId");
       setCardIdNums(cardIds);
+
+      const lastCardId = cardIds[cardIds.length - 1];
+      if (lastCardId) {
+        const cardTitle = getCardTitleByCardId(lastCardId);
+        document.title = cardTitle ? `${cardTitle} | ${SEO.title}` : SEO.title;
+      } else {
+        document.title = SEO.title;
+      }
     };
 
     handleUrlChange();
@@ -92,7 +107,7 @@ export default function Content({ cards }: { cards: Card[] }) {
   };
 
   return (
-    <div className="flex justify-center gap-8">
+    <div className="flex justify-center gap-6">
       {cardIdNums.length > 0 ? (
         <>
           {isMobile ? (
@@ -116,12 +131,17 @@ export default function Content({ cards }: { cards: Card[] }) {
                 ))}
               </div>
 
-              {cardIdNums.slice(-visibleCards).map((cardId) => (
-                <Card
-                  key={cardId}
-                  cards={cards}
-                  content={getCardContentByCardId(cardId)}
-                />
+              {cardIdNums.slice(-visibleCards).map((cardId, index) => (
+                <>
+                  <Card
+                    key={cardId}
+                    cards={cards}
+                    content={getCardContentByCardId(cardId)}
+                  />
+                  {index < cardIdNums.slice(-visibleCards).length - 1 && (
+                    <div className="w-[1px] bg-zinc-200 dark:bg-zinc-800" />
+                  )}
+                </>
               ))}
             </>
           )}

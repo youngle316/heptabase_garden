@@ -28,4 +28,10 @@ export default {
       });
     },
   ],
+  safelist: [
+    // 自动包含所有颜色的 text 和 bg 类
+    {
+      pattern: /(bg|text)-\w+-[1-9]00/,
+    },
+  ],
 } satisfies Config;

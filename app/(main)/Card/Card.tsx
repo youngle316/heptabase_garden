@@ -4,6 +4,7 @@ import Li from "@/components/CustomLi";
 import { MathBlock, MathInline } from "@/components/CustomMath";
 import { ToggleListItem } from "@/components/CustomToggleList";
 import { transformListItems } from "@/utils/heptabaseFunction";
+import Blockquote from "@tiptap/extension-blockquote";
 import Bold from "@tiptap/extension-bold";
 import BulletList from "@tiptap/extension-bullet-list";
 import Code from "@tiptap/extension-code";
@@ -53,6 +54,7 @@ export default function CardComponent({
           MathBlock,
           ToggleListItem,
           Code,
+          Blockquote,
           CodeBlock.extend({
             name: "code_block",
           }),

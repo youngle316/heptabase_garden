@@ -28,6 +28,9 @@ body {
   .prose h3 {
     border-bottom: 1px solid var(--foreground);
   }
+  .prose u {
+    @apply underline underline-offset-4 decoration-[0.05em]
+  }
 
   .prose a {
     @apply text-blue-500 cursor-pointer underline-offset-4 underline;
