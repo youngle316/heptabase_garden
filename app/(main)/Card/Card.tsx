@@ -11,6 +11,7 @@ import Code from "@tiptap/extension-code";
 import CodeBlock from "@tiptap/extension-code-block";
 import { Document } from "@tiptap/extension-document";
 import Heading from "@tiptap/extension-heading";
+import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import ListItem from "@tiptap/extension-list-item";
 import OrderedList from "@tiptap/extension-ordered-list";
@@ -55,6 +56,7 @@ export default function CardComponent({
           ToggleListItem,
           Code,
           Blockquote,
+          Image,
           CodeBlock.extend({
             name: "code_block",
           }),
