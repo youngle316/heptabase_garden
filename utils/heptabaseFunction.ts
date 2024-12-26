@@ -1,16 +1,15 @@
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function transformListItems(content: any) {
+  const mergedContent = mergeNumberedListItems(content);
+
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  return content.map((node: any) => {
-    // 复制节点
+  return mergedContent.map((node: any) => {
     const newNode = { ...node };
 
-    // 如果是列表项
     if (
       newNode.type === 'bullet_list_item' ||
       newNode.type === 'numbered_list_item'
     ) {
-      // 处理内容数组中的第一层级节点
       if (newNode.content) {
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         newNode.content = newNode.content.map((child: any) => ({
@@ -20,7 +19,6 @@ export function transformListItems(content: any) {
       }
     }
 
-    // 递归处理子内容
     if (newNode.content) {
       newNode.content = transformListItems(newNode.content);
     }
@@ -51,4 +49,59 @@ export function addParentIdToContent(cards: Card[]) {
       content: JSON.stringify(content),
     };
   });
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export function transformBulletList(content: any) {
+  if (content.type === 'bullet_list_item' && Array.isArray(content.content)) {
+    if (content.content.length > 1) {
+      const [mainItem, ...childItems] = content.content;
+
+      return {
+        type: 'bullet_list_item',
+        attrs: content.attrs,
+        content: [
+          mainItem,
+          {
+            type: 'bullet_list_item',
+            attrs: {
+              ...content.attrs,
+              id: `${content.attrs.id}-children`,
+            },
+            content: childItems,
+          },
+        ],
+      };
+    }
+  }
+  return content;
+}
+
+function mergeNumberedListItems(items: Content[]): Content[] {
+  const result: Content[] = [];
+  let currentNumberedList: Content[] = [];
+
+  items.forEach((item, index) => {
+    if (item.type === 'numbered_list_item') {
+      currentNumberedList.push(item);
+
+      if (
+        index === items.length - 1 ||
+        items[index + 1]?.type !== 'numbered_list_item'
+      ) {
+        if (currentNumberedList.length > 0) {
+          result.push({
+            type: 'numbered_list_item',
+            attrs: currentNumberedList[0].attrs,
+            content: currentNumberedList.flatMap((item) => item.content),
+          });
+          currentNumberedList = [];
+        }
+      }
+    } else {
+      result.push(item);
+    }
+  });
+
+  return result;
 }

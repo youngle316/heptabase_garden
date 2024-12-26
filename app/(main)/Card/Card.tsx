@@ -3,7 +3,10 @@ import CustomColor from "@/components/CustomColor";
 import Li from "@/components/CustomLi";
 import { MathBlock, MathInline } from "@/components/CustomMath";
 import { ToggleListItem } from "@/components/CustomToggleList";
-import { transformListItems } from "@/utils/heptabaseFunction";
+import {
+  transformBulletList,
+  transformListItems,
+} from "@/utils/heptabaseFunction";
 import Blockquote from "@tiptap/extension-blockquote";
 import Bold from "@tiptap/extension-bold";
 import BulletList from "@tiptap/extension-bullet-list";
@@ -31,11 +34,16 @@ export default function CardComponent({
   cards: Card[];
 }) {
   const parsedContent = JSON.parse(content);
-  const transformedContent = transformListItems(parsedContent.content);
+  const transformedContent = transformListItems(parsedContent.content).map(
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    (item: any) => transformBulletList(item)
+  );
 
   const genCardId = () => {
     return transformedContent.length > 0 ? transformedContent[0].attrs.id : "";
   };
+
+  console.log(transformedContent);
 
   const htmlContent = content
     ? generateHTML(
