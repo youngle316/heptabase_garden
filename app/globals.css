@@ -36,6 +36,19 @@ body {
     @apply text-blue-500 cursor-pointer underline-offset-4 underline;
   }
 
+  .prose ul > ul > li::marker {
+    content: "◦";
+  }
+
+  .prose blockquote {
+    @apply not-italic;
+  }
+
+  .prose h2,
+  .prose h3 {
+    @apply border-none;
+  }
+
   .card {
     @apply text-blue-500 cursor-pointer underline-offset-4 underline decoration-zinc-300;
   }

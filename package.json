@@ -18,6 +18,7 @@
     "@tiptap/extension-color": "^2.10.4",
     "@tiptap/extension-document": "^2.10.4",
     "@tiptap/extension-heading": "^2.10.4",
+    "@tiptap/extension-image": "^2.10.4",
     "@tiptap/extension-italic": "^2.10.4",
     "@tiptap/extension-link": "^2.10.4",
     "@tiptap/extension-list-item": "^2.10.4",

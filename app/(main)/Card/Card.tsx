@@ -3,7 +3,10 @@ import CustomColor from "@/components/CustomColor";
 import Li from "@/components/CustomLi";
 import { MathBlock, MathInline } from "@/components/CustomMath";
 import { ToggleListItem } from "@/components/CustomToggleList";
-import { transformListItems } from "@/utils/heptabaseFunction";
+import {
+  transformBulletList,
+  transformListItems,
+} from "@/utils/heptabaseFunction";
 import Blockquote from "@tiptap/extension-blockquote";
 import Bold from "@tiptap/extension-bold";
 import BulletList from "@tiptap/extension-bullet-list";
@@ -11,6 +14,7 @@ import Code from "@tiptap/extension-code";
 import CodeBlock from "@tiptap/extension-code-block";
 import { Document } from "@tiptap/extension-document";
 import Heading from "@tiptap/extension-heading";
+import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import ListItem from "@tiptap/extension-list-item";
 import OrderedList from "@tiptap/extension-ordered-list";
@@ -30,11 +34,16 @@ export default function CardComponent({
   cards: Card[];
 }) {
   const parsedContent = JSON.parse(content);
-  const transformedContent = transformListItems(parsedContent.content);
+  const transformedContent = transformListItems(parsedContent.content).map(
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    (item: any) => transformBulletList(item)
+  );
 
   const genCardId = () => {
     return transformedContent.length > 0 ? transformedContent[0].attrs.id : "";
   };
+
+  console.log(transformedContent);
 
   const htmlContent = content
     ? generateHTML(
@@ -55,6 +64,7 @@ export default function CardComponent({
           ToggleListItem,
           Code,
           Blockquote,
+          Image,
           CodeBlock.extend({
             name: "code_block",
           }),
