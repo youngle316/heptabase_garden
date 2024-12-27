@@ -36,6 +36,10 @@ body {
     @apply border-none;
   }
 
+  .prose hr {
+    @apply mt-0;
+  }
+
   .card {
     @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline decoration-black/10 dark:decoration-white/10;
   }

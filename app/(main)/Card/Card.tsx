@@ -14,6 +14,7 @@ import Code from "@tiptap/extension-code";
 import CodeBlock from "@tiptap/extension-code-block";
 import { Document } from "@tiptap/extension-document";
 import Heading from "@tiptap/extension-heading";
+import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import ListItem from "@tiptap/extension-list-item";
@@ -27,9 +28,11 @@ import { generateHTML } from "@tiptap/html";
 import CardContent from "./CardContent";
 
 export default function CardComponent({
+  cardId,
   content,
   cards,
 }: {
+  cardId: string;
   content: string;
   cards: Card[];
 }) {
@@ -63,6 +66,9 @@ export default function CardComponent({
           Code,
           Blockquote,
           Image,
+          HorizontalRule.extend({
+            name: "horizontal_rule",
+          }),
           CodeBlock.extend({
             name: "code_block",
           }),
@@ -93,7 +99,7 @@ export default function CardComponent({
       className="prose h-screen w-full overflow-y-auto px-4 pt-4 pb-16 md:min-w-[550px] md:max-w-[580px]"
       data-card-id={genCardId()}
     >
-      <CardContent cards={cards} htmlContent={htmlContent} />
+      <CardContent cardId={cardId} cards={cards} htmlContent={htmlContent} />
     </div>
   );
 }

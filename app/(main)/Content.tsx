@@ -1,9 +1,10 @@
 "use client";
 
 import { SEO } from "@/config";
-import { useCardIdNums } from "@/store/heptabase";
+import { useCardIdNums, useCardIds } from "@/store/heptabase";
+import { generateCardIds } from "@/utils/heptabaseFunction";
 import type { Metadata } from "next/types";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Card from "./Card/Card";
 import ClosedCard from "./Card/ClosedCard";
 
@@ -16,6 +17,13 @@ export default function Content({ cards }: { cards: Card[] }) {
   const { cardIdNums, setCardIdNums } = useCardIdNums();
   const [visibleCards, setVisibleCards] = useState<number>(0);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const { setCardIds } = useCardIds();
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const cardIds = generateCardIds(cards);
+    setCardIds(cardIds);
+  }, []);
 
   useEffect(() => {
     const handleUrlChange = () => {
@@ -103,7 +111,7 @@ export default function Content({ cards }: { cards: Card[] }) {
   };
 
   return (
-    <div className="flex justify-center gap-6">
+    <div className="flex gap-6">
       {cardIdNums.length > 0 ? (
         <>
           {isMobile ? (
@@ -111,7 +119,14 @@ export default function Content({ cards }: { cards: Card[] }) {
               {cardIdNums.slice(-1).map((cardId) => {
                 const content = getCardContentByCardId(cardId);
                 if (!content) return null;
-                return <Card key={cardId} cards={cards} content={content} />;
+                return (
+                  <Card
+                    cardId={cardId}
+                    key={cardId}
+                    cards={cards}
+                    content={content}
+                  />
+                );
               })}
             </>
           ) : (
@@ -128,22 +143,26 @@ export default function Content({ cards }: { cards: Card[] }) {
               </div>
 
               {cardIdNums.slice(-visibleCards).map((cardId, index) => (
-                <>
+                <Fragment key={cardId}>
                   <Card
-                    key={cardId}
                     cards={cards}
+                    cardId={cardId}
                     content={getCardContentByCardId(cardId)}
                   />
                   {index < cardIdNums.slice(-visibleCards).length - 1 && (
                     <div className="w-[1px] bg-foreground/10 dark:bg-foreground/10" />
                   )}
-                </>
+                </Fragment>
               ))}
             </>
           )}
         </>
       ) : (
-        <Card cards={cards} content={getCardContentByName("About")} />
+        <Card
+          cardId={getCardIdByCardName("About")}
+          cards={cards}
+          content={getCardContentByName("About")}
+        />
       )}
     </div>
   );
