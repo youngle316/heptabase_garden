@@ -47,7 +47,9 @@ export default function ClosedCard({
       onClick={handleShowCard}
       className="writing-vertical-rl flex flex-shrink-0 justify-between border-zinc-200 border-x px-2 py-4 text-xl"
     >
-      <div className="flex-1 cursor-pointer hover:text-blue-400">{title}</div>
+      <div className="flex-1 cursor-pointer hover:text-[#207DFF] hover:dark:text-[#61C6FA]">
+        {title}
+      </div>
       {index !== 0 && (
         <div
           onClick={handleCloseCard}

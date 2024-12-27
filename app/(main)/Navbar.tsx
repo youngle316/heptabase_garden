@@ -1,4 +1,5 @@
 "use client";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Leaf } from "lucide-react";
 
 export default function Navbar() {
@@ -10,11 +11,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between border-zinc-300 border-b px-8 py-2">
+    <nav className="sticky top-0 z-50 flex items-center justify-between border-foreground/10 border-b px-8 py-2">
       <div onClick={handleLogoClick}>
         <Leaf className="cursor-pointer" />
       </div>
-      <div>theme</div>
+      <ThemeToggle />
     </nav>
   );
 }

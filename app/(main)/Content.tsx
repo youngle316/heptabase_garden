@@ -135,7 +135,7 @@ export default function Content({ cards }: { cards: Card[] }) {
                     content={getCardContentByCardId(cardId)}
                   />
                   {index < cardIdNums.slice(-visibleCards).length - 1 && (
-                    <div className="w-[1px] bg-zinc-200 dark:bg-zinc-800" />
+                    <div className="w-[1px] bg-foreground/10 dark:bg-foreground/10" />
                   )}
                 </>
               ))}
