@@ -43,8 +43,6 @@ export default function CardComponent({
     return transformedContent.length > 0 ? transformedContent[0].attrs.id : "";
   };
 
-  console.log(transformedContent);
-
   const htmlContent = content
     ? generateHTML(
         {
@@ -92,7 +90,7 @@ export default function CardComponent({
 
   return (
     <div
-      className="prose h-screen w-full overflow-y-auto px-4 py-8 md:min-w-[550px] md:max-w-[580px]"
+      className="prose h-screen w-full overflow-y-auto px-4 pt-4 pb-16 md:min-w-[550px] md:max-w-[580px]"
       data-card-id={genCardId()}
     >
       <CardContent cards={cards} htmlContent={htmlContent} />

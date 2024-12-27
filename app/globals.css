@@ -2,21 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
   width: 100%;
@@ -29,11 +15,11 @@ body {
     border-bottom: 1px solid var(--foreground);
   }
   .prose u {
-    @apply underline underline-offset-4 decoration-[0.05em]
+    @apply underline underline-offset-4 decoration-[0.05em];
   }
 
   .prose a {
-    @apply text-blue-500 cursor-pointer underline-offset-4 underline;
+    @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline;
   }
 
   .prose ul > ul > li::marker {
@@ -41,7 +27,8 @@ body {
   }
 
   .prose blockquote {
-    @apply not-italic;
+
+    @apply not-italic border-foreground;
   }
 
   .prose h2,
@@ -50,6 +37,108 @@ body {
   }
 
   .card {
-    @apply text-blue-500 cursor-pointer underline-offset-4 underline decoration-zinc-300;
+    @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline decoration-black/10 dark:decoration-white/10;
+  }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+
+    --text-red-editor: #dc2626;
+    --text-pink-editor: #d1538b;
+    --text-purple-editor: #9333ea;
+    --text-blue-editor: #2563eb;
+    --text-green-editor: #16a34a;
+    --text-yellow-editor: #ca8a04;
+    --text-orange-editor: #ea580c;
+    --text-brown-editor: #9e6b53;
+    --text-gray-editor: #908f89;
+
+    --bg-red-editor: #fee2e2;
+    --bg-pink-editor: #f3d9e8;
+    --bg-purple-editor: #e5d7f5;
+    --bg-blue-editor: #dbeafe;
+    --bg-green-editor: #c4f5d5;
+    --bg-yellow-editor: #fef9c3;
+    --bg-orange-editor: #ffedd5;
+    --bg-brown-editor: #f1e1e1;
+    --bg-gray-editor: #e3e3dd;
+  }
+  .dark {
+    --background: 214 7% 15%;
+    --foreground: 0 0% 88%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    --text-red-editor: #ef4444;
+    --text-pink-editor: #ec4899;
+    --text-purple-editor: #a855f7;
+    --text-blue-editor: #3b82f6;
+    --text-green-editor: #22c55e;
+    --text-yellow-editor: #eab308;
+    --text-orange-editor: #f97316;
+    --text-brown-editor: #ba856f;
+    --text-gray-editor: #9b9b9b;
+
+    --bg-red-editor: #ef444466;
+    --bg-pink-editor: #ea479866;
+    --bg-purple-editor: #a855f766;
+    --bg-blue-editor: #3b82a666;
+    --bg-green-editor: #22c55e66;
+    --bg-yellow-editor: #eab30866;
+    --bg-orange-editor: #f9731666;
+    --bg-brown-editor: #614234;
+    --bg-gray-editor: #9ba6bc;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

@@ -21,12 +21,25 @@ const CustomColor = Mark.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    const className =
-      HTMLAttributes.type === 'background'
-        ? `bg-${HTMLAttributes.color}-100 leading-[inherit] inline-block h-full`
-        : `text-${HTMLAttributes.color}-600`;
+    const baseStyle = { lineHeight: 'inherit' };
 
-    return ['span', { class: className }, 0];
+    const colorStyle =
+      HTMLAttributes.type === 'background'
+        ? {
+            ...baseStyle,
+            backgroundColor: HTMLAttributes.color
+              ? `var(--bg-${HTMLAttributes.color}-editor)`
+              : undefined,
+            display: 'inline-block',
+            height: '100%',
+          }
+        : {
+            color: HTMLAttributes.color
+              ? `var(--text-${HTMLAttributes.color}-editor)`
+              : undefined,
+          };
+
+    return ['span', { style: colorStyle }, 0];
   },
 
   addAttributes() {
