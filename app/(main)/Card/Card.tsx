@@ -6,6 +6,7 @@ import { CustomTableCell } from "@/components/CustomTableCell";
 import { CustomTableRow } from "@/components/CustomTableRow";
 import CustomTodoListItem from "@/components/CustomTodoList";
 import { ToggleListItem } from "@/components/CustomToggleList";
+import CustomVideo from "@/components/CustomVideo";
 import {
   transformBulletList,
   transformListItems,
@@ -48,8 +49,6 @@ export default function CardComponent({
     (item: any) => transformBulletList(item)
   );
 
-  console.log(transformedContent);
-
   const genCardId = () => {
     return transformedContent.length > 0 ? transformedContent[0].attrs.id : "";
   };
@@ -73,7 +72,14 @@ export default function CardComponent({
           ToggleListItem,
           Code,
           Blockquote,
-          Image,
+          Image.extend({
+            renderHTML({ HTMLAttributes }) {
+              if (!HTMLAttributes.src) {
+                return ["div", {}];
+              }
+              return ["img", HTMLAttributes];
+            },
+          }),
           Table,
           TableCell,
           CustomTableCell,
@@ -81,6 +87,7 @@ export default function CardComponent({
           TableRow,
           CustomTableRow,
           CustomTodoListItem,
+          CustomVideo,
           HorizontalRule.extend({
             name: "horizontal_rule",
           }),
