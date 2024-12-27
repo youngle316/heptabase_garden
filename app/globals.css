@@ -29,7 +29,7 @@ body {
     border-bottom: 1px solid var(--foreground);
   }
   .prose u {
-    @apply underline underline-offset-4 decoration-[0.05em]
+    @apply underline underline-offset-4 decoration-[0.05em];
   }
 
   .prose a {

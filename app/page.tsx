@@ -1,6 +1,6 @@
 import { addParentIdToContent } from "@/utils/heptabaseFunction";
 import Content from "./(main)/Content";
-
+import Navbar from "./(main)/Navbar";
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -19,11 +19,13 @@ export default async function Home() {
   const cardsWithParentId = addParentIdToContent(data?.data?.cards);
 
   return (
-    <div className="h-full w-full md:mx-auto md:overflow-y-hidden">
+    <div className="flex h-screen w-full flex-col md:mx-auto">
       {data ? (
         <>
-          {/* <Navbar /> */}
-          <Content cards={cardsWithParentId} />
+          <Navbar />
+          <div className="flex-1 overflow-hidden">
+            <Content cards={cardsWithParentId} />
+          </div>
         </>
       ) : (
         <div>No data</div>

@@ -18,23 +18,19 @@ export default function Content({ cards }: { cards: Card[] }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cardIds = params.getAll("cardId");
-    if (cardIds.length === 0) {
-      const aboutCardId = getCardIdByCardName("About");
-      const searchParams = new URLSearchParams(window.location.search);
-
-      searchParams.append("cardId", aboutCardId);
-      window.history.pushState({}, "", `?${searchParams.toString()}`);
-      window.dispatchEvent(new Event("urlchange"));
-    }
-  }, []);
-
-  useEffect(() => {
     const handleUrlChange = () => {
       const params = new URLSearchParams(window.location.search);
       const cardIds = params.getAll("cardId");
       setCardIdNums(cardIds);
+
+      if (cardIds.length === 0) {
+        const aboutCardId = getCardIdByCardName("About");
+        const searchParams = new URLSearchParams(window.location.search);
+
+        searchParams.append("cardId", aboutCardId);
+        window.history.pushState({}, "", `?${searchParams.toString()}`);
+        window.dispatchEvent(new Event("urlchange"));
+      }
 
       const lastCardId = cardIds[cardIds.length - 1];
       if (lastCardId) {
