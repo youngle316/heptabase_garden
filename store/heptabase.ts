@@ -20,4 +20,12 @@ const useCardIdNums = create<{
   setCurrentId: (currentId) => set({ currentId }),
 }));
 
-export { useCardIdNums, useHeptabaseStore };
+const useCardIds = create<{
+  cardIds: { mainId: string; ids: string[] }[];
+  setCardIds: (cardIds: { mainId: string; ids: string[] }[]) => void;
+}>((set) => ({
+  cardIds: [],
+  setCardIds: (cardIds) => set({ cardIds }),
+}));
+
+export { useCardIdNums, useCardIds, useHeptabaseStore };

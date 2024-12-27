@@ -27,6 +27,34 @@ export function transformListItems(content: any) {
   });
 }
 
+export function generateCardIds(cards: Card[]) {
+  return cards.map((card) => {
+    const content = JSON.parse(card.content);
+    const cardIds: string[] = [];
+
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    const findCardIds = (node: any) => {
+      if (node.type === 'card' && node.attrs?.cardId) {
+        cardIds.push(node.attrs.cardId);
+      }
+
+      if (node.content && Array.isArray(node.content)) {
+        node.content.forEach(findCardIds);
+      }
+    };
+
+    // 从根节点开始递归查找
+    if (content.content) {
+      content.content.forEach(findCardIds);
+    }
+
+    return {
+      mainId: card.id,
+      ids: cardIds,
+    };
+  });
+}
+
 export function addParentIdToContent(cards: Card[]) {
   return cards.map((card) => {
     const content = JSON.parse(card.content);

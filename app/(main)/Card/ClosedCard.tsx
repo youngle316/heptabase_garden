@@ -45,6 +45,9 @@ export default function ClosedCard({
   return (
     <div
       onClick={handleShowCard}
+      style={{
+        height: "calc(100vh - 53px)",
+      }}
       className="writing-vertical-rl flex flex-shrink-0 justify-between border-zinc-200 border-x px-2 py-4 text-xl"
     >
       <div className="flex-1 cursor-pointer hover:text-[#207DFF] hover:dark:text-[#61C6FA]">
