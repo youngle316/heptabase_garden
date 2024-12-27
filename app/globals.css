@@ -40,6 +40,20 @@ body {
     @apply mt-0;
   }
 
+  .prose table p {
+    @apply m-0;
+  }
+
+  .prose table {
+    @apply border-collapse;
+  }
+
+  .prose table td,
+  .prose table th {
+    @apply border border-muted-foreground p-2;
+  }
+
+
   .card {
     @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline decoration-black/10 dark:decoration-white/10;
   }
@@ -145,4 +159,51 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  .bg-active {
+    @apply bg-[#207DFF] dark:bg-[#61C6FA];
+  }
+}
+
+.todo-list-item p {
+  margin: 0;
+}
+
+.todo-list-item {
+  display: flex;
+  width: 100%;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  padding-left: 0.125rem;
+}
+ .bullet-wrapper {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  margin-right: 0.125rem;
+  flex-shrink: 0;
+  width: 1.75rem;
+ }
+
+.checkbox-container {
+  display: flex;
+  height: 2rem;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.todo-content {
+  display: flex;
+  min-width: 0px;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.todo-content > p {
+  padding: 3px 0.125rem;
+
+}
+
+.checked > p {
+  text-decoration: line-through 2px;
 }

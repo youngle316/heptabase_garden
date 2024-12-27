@@ -2,6 +2,9 @@ import CustomCard from "@/components/CustomCard";
 import CustomColor from "@/components/CustomColor";
 import Li from "@/components/CustomLi";
 import { MathBlock, MathInline } from "@/components/CustomMath";
+import { CustomTableCell } from "@/components/CustomTableCell";
+import { CustomTableRow } from "@/components/CustomTableRow";
+import CustomTodoListItem from "@/components/CustomTodoList";
 import { ToggleListItem } from "@/components/CustomToggleList";
 import {
   transformBulletList,
@@ -21,12 +24,15 @@ import ListItem from "@tiptap/extension-list-item";
 import OrderedList from "@tiptap/extension-ordered-list";
 import { Paragraph } from "@tiptap/extension-paragraph";
 import Strike from "@tiptap/extension-strike";
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 import Text from "@tiptap/extension-text";
 import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import { generateHTML } from "@tiptap/html";
 import CardContent from "./CardContent";
-
 export default function CardComponent({
   cardId,
   content,
@@ -41,6 +47,8 @@ export default function CardComponent({
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     (item: any) => transformBulletList(item)
   );
+
+  console.log(transformedContent);
 
   const genCardId = () => {
     return transformedContent.length > 0 ? transformedContent[0].attrs.id : "";
@@ -66,6 +74,13 @@ export default function CardComponent({
           Code,
           Blockquote,
           Image,
+          Table,
+          TableCell,
+          CustomTableCell,
+          TableHeader,
+          TableRow,
+          CustomTableRow,
+          CustomTodoListItem,
           HorizontalRule.extend({
             name: "horizontal_rule",
           }),
