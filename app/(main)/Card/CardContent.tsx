@@ -15,11 +15,6 @@ export default function CardContent({
   const { allCards, setAllCards } = useHeptabaseStore();
   const { cardIds } = useCardIds();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    setAllCards(cards);
-  }, [cards]);
-
   const getCardInfo = (cardId: string) => {
     const card = cards.find((card) => card.id === cardId);
     return {
@@ -28,35 +23,89 @@ export default function CardContent({
     };
   };
 
-  useEffect(() => {
-    const handleCardClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (target.getAttribute("data-type") === "card") {
-        const cardId = target.getAttribute("data-card-id");
-        const parentCardId = target.getAttribute("data-parent-id");
-        if (cardId) {
-          const searchParams = new URLSearchParams(window.location.search);
-          const existingCardIds = searchParams.getAll("cardId");
-          if (!existingCardIds.includes(cardId)) {
-            if (parentCardId && existingCardIds.includes(parentCardId)) {
-              const parentIndex = existingCardIds.indexOf(parentCardId);
-              const keepCardIds = existingCardIds.slice(0, parentIndex + 1);
-              searchParams.delete("cardId");
-              for (const id of keepCardIds) {
-                searchParams.append("cardId", id);
-              }
-            }
-            searchParams.append("cardId", cardId);
-            window.history.pushState({}, "", `?${searchParams.toString()}`);
-            window.dispatchEvent(new Event("urlchange"));
+  const handleCardClick = (target: HTMLElement) => {
+    const cardId = target.getAttribute("data-card-id");
+    const parentCardId = target.getAttribute("data-parent-id");
+    if (cardId) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const existingCardIds = searchParams.getAll("cardId");
+      if (!existingCardIds.includes(cardId)) {
+        if (parentCardId && existingCardIds.includes(parentCardId)) {
+          const parentIndex = existingCardIds.indexOf(parentCardId);
+          const keepCardIds = existingCardIds.slice(0, parentIndex + 1);
+          searchParams.delete("cardId");
+          for (const id of keepCardIds) {
+            searchParams.append("cardId", id);
           }
         }
+        searchParams.append("cardId", cardId);
+        window.history.pushState({}, "", `?${searchParams.toString()}`);
+        window.dispatchEvent(new Event("urlchange"));
+      }
+    }
+  };
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const updateFolded = (items: any[], nodeId: string): boolean => {
+    if (!Array.isArray(items)) return false;
+
+    for (const item of items) {
+      // 检查当前项是否为 toggle_list_item 且 id 匹配
+      if (item.type === "toggle_list_item" && item.attrs?.id === nodeId) {
+        item.attrs.folded = !item.attrs.folded;
+        return true; // 找到并修改后立即返回
+      }
+
+      // 递归检查 content 数组
+      if (item.content && Array.isArray(item.content)) {
+        if (updateFolded(item.content, nodeId)) {
+          return true; // 如果在子内容中找到并修改，也立即返回
+        }
+      }
+    }
+    return false;
+  };
+
+  const handleToggleListClick = (target: HTMLElement) => {
+    const nodeId = target.getAttribute("data-node-id") as string;
+    const cardContent = JSON.parse(
+      cards.find((card) => card.id === cardId)?.content || "[]"
+    );
+
+    updateFolded(cardContent.content, nodeId);
+    const tempCard = [...cards];
+    for (const card of tempCard) {
+      if (card.id === cardId) {
+        card.content = JSON.stringify(cardContent);
+      }
+    }
+    setAllCards(tempCard);
+  };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const handleDomClick = (event: MouseEvent) => {
+      event.stopPropagation();
+      const target = event.target as HTMLElement;
+
+      // 查找最近的带有 data-type="card" 的父元素
+      const cardElement = target.closest('[data-type="card"]');
+      if (cardElement) {
+        handleCardClick(cardElement as HTMLElement);
+      }
+
+      // 查找最近的带有 data-type="toggle_list_item_icon" 的父元素
+      const toggleElement = target.closest(
+        '[data-type="toggle_list_item_icon"]'
+      );
+      if (toggleElement) {
+        handleToggleListClick(toggleElement as HTMLElement);
       }
     };
 
-    document.addEventListener("click", handleCardClick);
+    document.addEventListener("click", handleDomClick);
     return () => {
-      document.removeEventListener("click", handleCardClick);
+      document.removeEventListener("click", handleDomClick);
     };
   }, []);
 
@@ -70,7 +119,7 @@ export default function CardContent({
       .map((item) => item.mainId);
   };
 
-  const handleCardClick = (cardId: string) => {
+  const handleLinksCardClick = (cardId: string) => {
     const searchParams = new URLSearchParams(window.location.search);
     const existingCardIds = searchParams.getAll("cardId");
     if (existingCardIds.includes(cardId)) {
@@ -100,7 +149,7 @@ export default function CardContent({
                   className="text-[#207DFF] text-sm dark:text-[#61C6FA]"
                   key={item}
                 >
-                  <li onClick={() => handleCardClick(item)}>
+                  <li onClick={() => handleLinksCardClick(item)}>
                     <span className="cursor-pointer">{card?.title}</span>
                   </li>
                 </ul>
