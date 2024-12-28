@@ -27,7 +27,6 @@ body {
   }
 
   .prose blockquote {
-
     @apply not-italic border-foreground;
   }
 
@@ -52,7 +51,6 @@ body {
   .prose table th {
     @apply border border-muted-foreground p-2;
   }
-
 
   .card {
     @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline decoration-black/10 dark:decoration-white/10;
@@ -176,14 +174,14 @@ body {
   margin-bottom: 1px;
   padding-left: 0.125rem;
 }
- .bullet-wrapper {
+.bullet-wrapper {
   display: flex;
   position: relative;
   justify-content: center;
   margin-right: 0.125rem;
   flex-shrink: 0;
   width: 1.75rem;
- }
+}
 
 .checkbox-container {
   display: flex;
@@ -201,9 +199,44 @@ body {
 
 .todo-content > p {
   padding: 3px 0.125rem;
-
 }
 
 .checked > p {
   text-decoration: line-through 2px;
+}
+
+.toggle_list_item {
+  @apply flex my-[1px] pl-[0.125rem];
+}
+
+.toggle_list_item p {
+  @apply my-0;
+}
+
+.toggle_list_item .bulletWrapper {
+  @apply relative mr-[0.125rem] flex-shrink-0 w-[1.75rem] justify-center flex;
+}
+
+.toggle_list_item .hasNestedBlocks .toggleIcon {
+  @apply fill-foreground;
+}
+
+.nestedBlocks {
+  @apply flex min-w-0 flex-grow flex-col;
+}
+
+.nestedBlocks > p {
+  @apply py-[3px] px-[0.125rem];
+}
+
+.folded > .nestedBlocks > :not(:first-child) {
+  display: none;
+}
+
+.folded .toggleIcon {
+  transform: rotate(-90deg);
+}
+
+.toggleIcon {
+  @apply fill-[rgba(0,0,0,0.21)] dark:fill-[rgba(255,255,255,0.32)];
 }
