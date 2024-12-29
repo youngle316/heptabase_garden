@@ -96,6 +96,27 @@ export default function CardComponent({
           }),
           CodeBlock.extend({
             name: "code_block",
+            addAttributes() {
+              return {
+                id: {
+                  default: null,
+                },
+                params: {
+                  default: null,
+                },
+                parentId: {
+                  default: null,
+                },
+              };
+            },
+            renderHTML({ HTMLAttributes }) {
+              const language = HTMLAttributes.params || "";
+              return [
+                "pre",
+                {},
+                ["code", { class: `language-${language}` }, 0],
+              ];
+            },
           }),
           Bold.extend({
             name: "strong",

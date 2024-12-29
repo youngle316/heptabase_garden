@@ -1,7 +1,10 @@
 "use client";
+
 import { useCardIds, useHeptabaseStore } from "@/store/heptabase";
 import dayjs from "dayjs";
+import hljs from "highlight.js";
 import { MathpixMarkdownModel as MM } from "mathpix-markdown-it";
+import { useTheme } from "next-themes";
 import { useEffect } from "react";
 
 export default function CardContent({
@@ -15,6 +18,27 @@ export default function CardContent({
 }) {
   const { allCards, setAllCards } = useHeptabaseStore();
   const { cardIds } = useCardIds();
+
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    // 初始执行
+    hljs.highlightAll();
+
+    // 创建观察器来监听DOM变化
+    const observer = new MutationObserver(() => {
+      hljs.highlightAll();
+    });
+
+    // 开始观察
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    // 清理函数
+    return () => observer.disconnect();
+  }, []);
 
   const getCardInfo = (cardId: string) => {
     const card = cards.find((card) => card.id === cardId);
