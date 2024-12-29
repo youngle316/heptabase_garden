@@ -24,8 +24,6 @@ export default function CardContent({
     };
   };
 
-  console.log("htmlContent", htmlContent);
-
   useEffect(() => {
     const observer = new MutationObserver(() => {
       const mathElements = document.querySelectorAll(".math-content");

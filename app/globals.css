@@ -22,6 +22,14 @@ body {
     @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline;
   }
 
+  .prose a:hover {
+    @apply text-[#207DFF] dark:text-[#61C6FA] underline-offset-4 underline;
+  }
+
+  .prose a:active {
+    @apply text-[#207DFF] dark:text-[#61C6FA] underline-offset-4 underline;
+  }
+
   .prose ul > ul > li::marker {
     content: "◦";
   }
@@ -101,6 +109,8 @@ body {
     --bg-orange-editor: #ffedd5;
     --bg-brown-editor: #f1e1e1;
     --bg-gray-editor: #e3e3dd;
+
+    --map-color-svg: #3b976f;
   }
   .dark {
     --background: 214 7% 15%;
@@ -147,6 +157,8 @@ body {
     --bg-orange-editor: #f9731666;
     --bg-brown-editor: #614234;
     --bg-gray-editor: #9ba6bc;
+
+    --map-color-svg: #4ca9ad;
   }
 }
 

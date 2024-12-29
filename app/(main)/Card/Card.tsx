@@ -7,6 +7,7 @@ import { CustomTableRow } from "@/components/CustomTableRow";
 import CustomTodoListItem from "@/components/CustomTodoList";
 import { ToggleListItem } from "@/components/CustomToggleList";
 import CustomVideo from "@/components/CustomVideo";
+import CustomWhiteboard from "@/components/CustomWhiteboard";
 import {
   transformBulletList,
   transformListItems,
@@ -54,8 +55,6 @@ export default function CardComponent({
     return transformedContent.length > 0 ? transformedContent[0].attrs.id : "";
   };
 
-  console.log("transformedContent", transformedContent);
-
   const htmlContent = content
     ? generateHTML(
         {
@@ -75,6 +74,7 @@ export default function CardComponent({
           ToggleListItem,
           Code,
           Blockquote,
+          CustomWhiteboard,
           Image.extend({
             renderHTML({ HTMLAttributes }) {
               if (!HTMLAttributes.src) {
