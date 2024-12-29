@@ -22,6 +22,14 @@ body {
     @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline;
   }
 
+  .prose a:hover {
+    @apply text-[#207DFF] dark:text-[#61C6FA] underline-offset-4 underline;
+  }
+
+  .prose a:active {
+    @apply text-[#207DFF] dark:text-[#61C6FA] underline-offset-4 underline;
+  }
+
   .prose ul > ul > li::marker {
     content: "◦";
   }
@@ -50,6 +58,23 @@ body {
   .prose table td,
   .prose table th {
     @apply border border-muted-foreground p-2;
+  }
+
+  .prose code:before {
+    content: "";
+  }
+
+  .prose code:after {
+    content: "";
+  }
+
+  .prose p code {
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: normal;
+    word-wrap: break-word;
+    @apply bg-[rgba(0,0,0,0.08)] dark:bg-[rgba(255,255,255,0.08)];
   }
 
   .card {
@@ -101,6 +126,8 @@ body {
     --bg-orange-editor: #ffedd5;
     --bg-brown-editor: #f1e1e1;
     --bg-gray-editor: #e3e3dd;
+
+    --map-color-svg: #3b976f;
   }
   .dark {
     --background: 214 7% 15%;
@@ -147,6 +174,8 @@ body {
     --bg-orange-editor: #f9731666;
     --bg-brown-editor: #614234;
     --bg-gray-editor: #9ba6bc;
+
+    --map-color-svg: #4ca9ad;
   }
 }
 
@@ -213,6 +242,18 @@ body {
   @apply my-0;
 }
 
+.toggle_list_item h1 {
+  @apply mb-0;
+}
+
+.toggle_list_item h2 {
+  @apply mb-0;
+}
+
+.toggle_list_item h3 {
+  @apply mb-0;
+}
+
 .toggle_list_item .bulletWrapper {
   @apply relative mr-[0.125rem] flex-shrink-0 w-[1.75rem] justify-center flex;
 }
@@ -239,4 +280,91 @@ body {
 
 .toggleIcon {
   @apply fill-[rgba(0,0,0,0.21)] dark:fill-[rgba(255,255,255,0.32)];
+}
+
+.math-content #preview {
+  @apply p-0;
+}
+
+.math-block #preview {
+  @apply flex justify-center py-8;
+}
+
+.prose pre code .hljs {
+  @apply bg-[#fefefe] text-[#545454] dark:bg-[#2b2b2b] dark:text-[#f8f8f2] !important;
+}
+/* Comment */
+.hljs-comment,
+.hljs-quote {
+  @apply text-[#696969] dark:text-[#d4d0ab] !important;
+}
+/* Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  @apply text-[#d91e18] dark:text-[#ffa07a] !important;
+}
+/* Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  @apply text-[#aa5d00] dark:text-[#f5ab35] !important;
+}
+/* Yellow */
+.hljs-attribute {
+  @apply text-[#aa5d00] dark:text-[#ffd700] !important;
+}
+/* Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  @apply text-[#008000] dark:text-[#abe338] !important;
+}
+/* Blue */
+.hljs-title,
+.hljs-section {
+  @apply text-[#007faa] dark:text-[#00e0e0] !important;
+}
+/* Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  @apply text-[#7928a1] dark:text-[#dcc6e0] !important;
+}
+.hljs-emphasis {
+  @apply italic;
+}
+.hljs-strong {
+  @apply font-bold;
+}
+@media screen and (-ms-high-contrast: active) {
+  .hljs-addition,
+  .hljs-attribute,
+  .hljs-built_in,
+  .hljs-bullet,
+  .hljs-comment,
+  .hljs-link,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-params,
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-type,
+  .hljs-quote {
+    @apply text-[#0184bb] dark:text-[#0184bb];
+  }
+  .hljs-keyword,
+  .hljs-selector-tag {
+    @apply font-bold;
+  }
 }

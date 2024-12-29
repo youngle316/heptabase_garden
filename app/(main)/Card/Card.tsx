@@ -7,6 +7,7 @@ import { CustomTableRow } from "@/components/CustomTableRow";
 import CustomTodoListItem from "@/components/CustomTodoList";
 import { ToggleListItem } from "@/components/CustomToggleList";
 import CustomVideo from "@/components/CustomVideo";
+import CustomWhiteboard from "@/components/CustomWhiteboard";
 import {
   transformBulletList,
   transformListItems,
@@ -34,6 +35,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import { generateHTML } from "@tiptap/html";
 import CardContent from "./CardContent";
+
 export default function CardComponent({
   cardId,
   content,
@@ -72,6 +74,7 @@ export default function CardComponent({
           ToggleListItem,
           Code,
           Blockquote,
+          CustomWhiteboard,
           Image.extend({
             renderHTML({ HTMLAttributes }) {
               if (!HTMLAttributes.src) {
@@ -93,6 +96,27 @@ export default function CardComponent({
           }),
           CodeBlock.extend({
             name: "code_block",
+            addAttributes() {
+              return {
+                id: {
+                  default: null,
+                },
+                params: {
+                  default: null,
+                },
+                parentId: {
+                  default: null,
+                },
+              };
+            },
+            renderHTML({ HTMLAttributes }) {
+              const language = HTMLAttributes.params || "";
+              return [
+                "pre",
+                {},
+                ["code", { class: `language-${language}` }, 0],
+              ];
+            },
           }),
           Bold.extend({
             name: "strong",

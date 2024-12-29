@@ -1,6 +1,10 @@
 "use client";
+
 import { useCardIds, useHeptabaseStore } from "@/store/heptabase";
 import dayjs from "dayjs";
+import hljs from "highlight.js";
+import { MathpixMarkdownModel as MM } from "mathpix-markdown-it";
+import { useTheme } from "next-themes";
 import { useEffect } from "react";
 
 export default function CardContent({
@@ -15,6 +19,27 @@ export default function CardContent({
   const { allCards, setAllCards } = useHeptabaseStore();
   const { cardIds } = useCardIds();
 
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    // 初始执行
+    hljs.highlightAll();
+
+    // 创建观察器来监听DOM变化
+    const observer = new MutationObserver(() => {
+      hljs.highlightAll();
+    });
+
+    // 开始观察
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    // 清理函数
+    return () => observer.disconnect();
+  }, []);
+
   const getCardInfo = (cardId: string) => {
     const card = cards.find((card) => card.id === cardId);
     return {
@@ -22,6 +47,43 @@ export default function CardContent({
       lastEditedTime: card?.lastEditedTime || "",
     };
   };
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const mathElements = document.querySelectorAll(".math-content");
+      for (const element of mathElements) {
+        const content = element.getAttribute("data-math");
+        if (content && !element.querySelector("svg")) {
+          const html = MM.render(
+            element.classList.contains("math-block")
+              ? `$$${content}$$`
+              : `$${content}$`
+          );
+          element.innerHTML = html;
+        }
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    const mathElements = document.querySelectorAll(".math-content");
+    for (const element of mathElements) {
+      const content = element.getAttribute("data-math");
+      if (content) {
+        const html = MM.render(
+          element.classList.contains("math-block")
+            ? `$$${content}$$`
+            : `$${content}$`
+        );
+        element.innerHTML = html;
+      }
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleCardClick = (target: HTMLElement) => {
     const cardId = target.getAttribute("data-card-id");
@@ -135,6 +197,7 @@ export default function CardContent({
       <div // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
+
       <div className="mt-8 text-muted-foreground text-xs">
         Last updated {formatDate(getCardInfo(cardId).lastEditedTime)}.
       </div>
