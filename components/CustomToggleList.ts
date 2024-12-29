@@ -62,7 +62,7 @@ export const ToggleListItem = Node.create({
           },
           [
             'span',
-            { class: 'flex items-center', style: 'height: 32px;' },
+            { class: 'flex items-center', style: 'height: 34px;' },
             [
               'div',
               {

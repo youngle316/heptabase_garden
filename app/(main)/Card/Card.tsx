@@ -34,6 +34,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import { generateHTML } from "@tiptap/html";
 import CardContent from "./CardContent";
+
 export default function CardComponent({
   cardId,
   content,
@@ -52,6 +53,8 @@ export default function CardComponent({
   const genCardId = () => {
     return transformedContent.length > 0 ? transformedContent[0].attrs.id : "";
   };
+
+  console.log("transformedContent", transformedContent);
 
   const htmlContent = content
     ? generateHTML(

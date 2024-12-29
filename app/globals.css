@@ -213,6 +213,18 @@ body {
   @apply my-0;
 }
 
+.toggle_list_item h1 {
+  @apply mb-0;
+}
+
+.toggle_list_item h2 {
+  @apply mb-0;
+}
+
+.toggle_list_item h3 {
+  @apply mb-0;
+}
+
 .toggle_list_item .bulletWrapper {
   @apply relative mr-[0.125rem] flex-shrink-0 w-[1.75rem] justify-center flex;
 }
@@ -239,4 +251,12 @@ body {
 
 .toggleIcon {
   @apply fill-[rgba(0,0,0,0.21)] dark:fill-[rgba(255,255,255,0.32)];
+}
+
+.math-content #preview {
+  @apply p-0;
+}
+
+.math-block #preview {
+  @apply flex justify-center py-8;
 }

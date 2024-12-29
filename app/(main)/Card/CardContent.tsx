@@ -1,6 +1,7 @@
 "use client";
 import { useCardIds, useHeptabaseStore } from "@/store/heptabase";
 import dayjs from "dayjs";
+import { MathpixMarkdownModel as MM } from "mathpix-markdown-it";
 import { useEffect } from "react";
 
 export default function CardContent({
@@ -22,6 +23,45 @@ export default function CardContent({
       lastEditedTime: card?.lastEditedTime || "",
     };
   };
+
+  console.log("htmlContent", htmlContent);
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const mathElements = document.querySelectorAll(".math-content");
+      for (const element of mathElements) {
+        const content = element.getAttribute("data-math");
+        if (content && !element.querySelector("svg")) {
+          const html = MM.render(
+            element.classList.contains("math-block")
+              ? `$$${content}$$`
+              : `$${content}$`
+          );
+          element.innerHTML = html;
+        }
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    const mathElements = document.querySelectorAll(".math-content");
+    for (const element of mathElements) {
+      const content = element.getAttribute("data-math");
+      if (content) {
+        const html = MM.render(
+          element.classList.contains("math-block")
+            ? `$$${content}$$`
+            : `$${content}$`
+        );
+        element.innerHTML = html;
+      }
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleCardClick = (target: HTMLElement) => {
     const cardId = target.getAttribute("data-card-id");
@@ -135,6 +175,7 @@ export default function CardContent({
       <div // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
+
       <div className="mt-8 text-muted-foreground text-xs">
         Last updated {formatDate(getCardInfo(cardId).lastEditedTime)}.
       </div>
