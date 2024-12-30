@@ -26,6 +26,7 @@ It uses [Heptabase](https://heptabase.com/) as a CMS, the interface comes from [
 
 ## Notes ❗
 
+- The whiteboard must contain a card named 'About', which will be displayed as the homepage.
 - Images and videos uploaded directly to Heptabase cannot be loaded properly.
   - You can use image hosting services.
   - YouTube and Bilibili videos can be loaded properly.
@@ -40,9 +41,10 @@ This project requires a recent version of Node.js (recommend >= 16).
 
 1. Fork this repo
 2. Change a few values in [site.config.ts](https://github.com/youngle316/heptabase_garden/blob/main/site.config.ts)
-3. npm install
-4. npm run dev to test locally
-5. Deploy to Vercel
+3. Must add a card named 'About' to the whiteboard, which will be displayed as the homepage.
+4. npm install
+5. npm run dev to test locally
+6. Deploy to Vercel
 
 I tried to make configuration as easy as possible — All you really need to do to get started is edit `whiteboardId`.
 

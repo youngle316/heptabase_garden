@@ -23,6 +23,7 @@
 
 ## 注意事项 ❗
 
+- 在白板中必须添加一个名称为 'About' 的卡片，这个卡片将作为首页展示。
 - 直接上传到 Heptabase 的图片和视频无法正常加载。
   - 你可以使用图床服务。
   - YouTube 和 Bilibili 视频可以正常加载。
@@ -36,9 +37,10 @@
 
 1. Fork 此仓库
 2. 在 [site.config.ts](https://github.com/youngle316/heptabase_garden/blob/main/site.config.ts) 中修改几个值
-3. npm install
-4. npm run dev 在本地测试
-5. 部署到 Vercel
+3. 在白板中必须添加一个名称为 'About' 的卡片，这个卡片将作为首页展示。
+4. npm install
+5. npm run dev 在本地测试
+6. 部署到 Vercel
 
 我尽量让配置变得简单 — 你真正需要做的就是编辑 `whiteboardId`。
 
