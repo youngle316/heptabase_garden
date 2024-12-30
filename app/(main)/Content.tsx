@@ -1,6 +1,6 @@
 "use client";
 
-import { SEO } from "@/config";
+import { SEO } from "@/site.config";
 import { useCardIdNums, useCardIds } from "@/store/heptabase";
 import { generateCardIds } from "@/utils/heptabaseFunction";
 import type { Metadata } from "next/types";
