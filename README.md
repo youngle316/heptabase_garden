@@ -32,7 +32,6 @@ It uses [Heptabase](https://heptabase.com/) as a CMS, the interface comes from [
 - The card linked in the card needs to be added to the whiteboard.
 
 
-
 ## How to use
 
 All config is defined in [site.config.ts](https://github.com/youngle316/heptabase_garden/blob/main/site.config.ts)
@@ -78,7 +77,7 @@ The Project uses ISR to update the notes, so you don't need to redeploy to updat
 
 ISR is a feature of Next.js that allows you to update your website without rebuilding the entire site. It works by generating a static version of your site at build time, and then updating the static version when new content is published.
 
-There is a `revalidate` in `site.config.ts`. When the value is 3600, it means one hour. It indicates that after the successful deployment, the webpage was opened for the first time, and the heptabase notes were updated within an hour. The interface will not display the latest content. You need to check the webpage again after an hour. At this time, the backend will rebuild, and after the rebuild is completed (usually within one or two minutes), refreshing the page will display the latest content.
+There is a `revalidate` in [page.tsx](https://github.com/youngle316/heptabase_garden/blob/main/app/page.tsx). When the value is 3600, it means one hour. It indicates that after the successful deployment, the webpage was opened for the first time, and the heptabase notes were updated within an hour. The interface will not display the latest content. You need to check the webpage again after an hour. At this time, the backend will rebuild, and after the rebuild is completed (usually within one or two minutes), refreshing the page will display the latest content.
 
 You can set it according to your needs.
 
