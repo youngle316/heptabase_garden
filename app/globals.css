@@ -77,6 +77,14 @@ body {
     @apply bg-[rgba(0,0,0,0.08)] dark:bg-[rgba(255,255,255,0.08)];
   }
 
+  .prose blockquote p:before {
+    content: "";
+  }
+
+  .prose blockquote p:after {
+    content: "";
+  }
+
   .card {
     @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline decoration-black/10 dark:decoration-white/10;
   }
