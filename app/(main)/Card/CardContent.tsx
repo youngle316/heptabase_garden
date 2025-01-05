@@ -88,6 +88,10 @@ export default function CardContent({
   const handleCardClick = (target: HTMLElement) => {
     const cardId = target.getAttribute("data-card-id");
     const parentCardId = target.getAttribute("data-parent-id");
+    const noreferrer = target.getAttribute("noreferrer");
+    if (noreferrer) {
+      return;
+    }
     if (cardId) {
       const searchParams = new URLSearchParams(window.location.search);
       const existingCardIds = searchParams.getAll("cardId");
