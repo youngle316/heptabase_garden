@@ -128,6 +128,8 @@ body {
     --bg-gray-editor: #e3e3dd;
 
     --map-color-svg: #3b976f;
+
+    --border-white-sect: hsl(0, 0%, 68%);
   }
   .dark {
     --background: 214 7% 15%;
@@ -176,6 +178,8 @@ body {
     --bg-gray-editor: #9ba6bc;
 
     --map-color-svg: #4ca9ad;
+
+    --border-white-sect: hsl(0, 0%, 58%);
   }
 }
 
