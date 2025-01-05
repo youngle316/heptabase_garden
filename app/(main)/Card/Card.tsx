@@ -2,6 +2,7 @@ import CustomCard from "@/components/CustomCard";
 import CustomColor from "@/components/CustomColor";
 import Li from "@/components/CustomLi";
 import { MathBlock, MathInline } from "@/components/CustomMath";
+import CustomSection from "@/components/CustomSection";
 import { CustomTableCell } from "@/components/CustomTableCell";
 import { CustomTableRow } from "@/components/CustomTableRow";
 import CustomTodoListItem from "@/components/CustomTodoList";
@@ -21,6 +22,7 @@ import { Document } from "@tiptap/extension-document";
 import Heading from "@tiptap/extension-heading";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Image from "@tiptap/extension-image";
+import Italic from "@tiptap/extension-italic";
 import Link from "@tiptap/extension-link";
 import ListItem from "@tiptap/extension-list-item";
 import OrderedList from "@tiptap/extension-ordered-list";
@@ -35,7 +37,6 @@ import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import { generateHTML } from "@tiptap/html";
 import CardContent from "./CardContent";
-
 export default function CardComponent({
   cardId,
   content,
@@ -75,6 +76,10 @@ export default function CardComponent({
           Code,
           Blockquote,
           CustomWhiteboard,
+          CustomSection,
+          Italic.extend({
+            name: "em",
+          }),
           Image.extend({
             renderHTML({ HTMLAttributes }) {
               if (!HTMLAttributes.src) {

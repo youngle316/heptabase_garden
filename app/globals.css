@@ -77,6 +77,18 @@ body {
     @apply bg-[rgba(0,0,0,0.08)] dark:bg-[rgba(255,255,255,0.08)];
   }
 
+  .prose blockquote p:before {
+    content: "";
+  }
+
+  .prose blockquote p:after {
+    content: "";
+  }
+
+  .prose blockquote {
+    @apply font-normal;
+  }
+
   .card {
     @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline decoration-black/10 dark:decoration-white/10;
   }
@@ -128,6 +140,8 @@ body {
     --bg-gray-editor: #e3e3dd;
 
     --map-color-svg: #3b976f;
+
+    --border-white-sect: hsl(0, 0%, 68%);
   }
   .dark {
     --background: 214 7% 15%;
@@ -176,6 +190,8 @@ body {
     --bg-gray-editor: #9ba6bc;
 
     --map-color-svg: #4ca9ad;
+
+    --border-white-sect: hsl(0, 0%, 58%);
   }
 }
 

@@ -33,8 +33,9 @@ const CustomCard = Node.create({
         'data-card-id': cardId,
         class: 'card',
         'data-parent-id': parentId,
+        noreferrer: card ? undefined : 'true',
       },
-      card ? card.title : node.attrs.text || '',
+      card ? card.title : node.attrs.text || cardId,
     ];
   },
 });
