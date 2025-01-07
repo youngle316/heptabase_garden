@@ -1,5 +1,6 @@
 import CustomCard from "@/components/CustomCard";
 import CustomColor from "@/components/CustomColor";
+import CustomDate from "@/components/CustomDate";
 import Li from "@/components/CustomLi";
 import { MathBlock, MathInline } from "@/components/CustomMath";
 import CustomSection from "@/components/CustomSection";
@@ -37,6 +38,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import { generateHTML } from "@tiptap/html";
 import CardContent from "./CardContent";
+
 export default function CardComponent({
   cardId,
   content,
@@ -96,6 +98,7 @@ export default function CardComponent({
           CustomTableRow,
           CustomTodoListItem,
           CustomVideo,
+          CustomDate,
           HorizontalRule.extend({
             name: "horizontal_rule",
           }),

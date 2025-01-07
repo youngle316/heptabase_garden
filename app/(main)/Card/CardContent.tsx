@@ -4,7 +4,6 @@ import { useCardIds, useHeptabaseStore } from "@/store/heptabase";
 import dayjs from "dayjs";
 import hljs from "highlight.js";
 import { MathpixMarkdownModel as MM } from "mathpix-markdown-it";
-import { useTheme } from "next-themes";
 import { useEffect } from "react";
 
 export default function CardContent({
@@ -18,8 +17,6 @@ export default function CardContent({
 }) {
   const { allCards, setAllCards } = useHeptabaseStore();
   const { cardIds } = useCardIds();
-
-  const { theme } = useTheme();
 
   useEffect(() => {
     // 初始执行
