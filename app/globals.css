@@ -44,7 +44,7 @@ body {
   }
 
   .prose hr {
-    @apply mt-0;
+    @apply m-[0.25rem] h-4 border-[rgba(0,0,0,0.13)] dark:border-[rgba(255,255,255,0.12)];
   }
 
   .prose table p {
