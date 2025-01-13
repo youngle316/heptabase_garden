@@ -48,9 +48,9 @@ export default function ClosedCard({
       style={{
         height: "calc(100vh - 53px)",
       }}
-      className="writing-vertical-rl flex flex-shrink-0 justify-between border-zinc-200 border-x px-2 py-4 text-xl"
+      className="writing-vertical-rl flex flex-shrink-0 justify-between border-foreground/10 border-x px-2 py-4 text-xl"
     >
-      <div className="flex-1 cursor-pointer hover:text-[#207DFF] hover:dark:text-[#61C6FA]">
+      <div className="flex-1 cursor-pointer text-foreground hover:text-[#207DFF] hover:dark:text-[#61C6FA]">
         {title}
       </div>
       {index !== 0 && (
@@ -58,7 +58,7 @@ export default function ClosedCard({
           onClick={handleCloseCard}
           className="flex cursor-pointer items-center hover:text-zinc-500"
         >
-          <X size={24} />
+          <X size={24} className="text-foreground" />
         </div>
       )}
     </div>
