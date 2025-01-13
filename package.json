@@ -18,6 +18,7 @@
     "@tiptap/extension-code-block": "^2.10.4",
     "@tiptap/extension-color": "^2.10.4",
     "@tiptap/extension-document": "^2.10.4",
+    "@tiptap/extension-hard-break": "^2.11.2",
     "@tiptap/extension-heading": "^2.10.4",
     "@tiptap/extension-horizontal-rule": "^2.10.4",
     "@tiptap/extension-image": "^2.10.4",

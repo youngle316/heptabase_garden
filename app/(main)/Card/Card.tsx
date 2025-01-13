@@ -20,6 +20,7 @@ import BulletList from "@tiptap/extension-bullet-list";
 import Code from "@tiptap/extension-code";
 import CodeBlock from "@tiptap/extension-code-block";
 import { Document } from "@tiptap/extension-document";
+import HardBreak from "@tiptap/extension-hard-break";
 import Heading from "@tiptap/extension-heading";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Image from "@tiptap/extension-image";
@@ -79,6 +80,9 @@ export default function CardComponent({
           Blockquote,
           CustomWhiteboard,
           CustomSection,
+          HardBreak.extend({
+            name: "hard_break",
+          }),
           Italic.extend({
             name: "em",
           }),
