@@ -38,3 +38,8 @@ type HightlightElement = {
     content: Array;
   };
 };
+
+type MentionInfo = {
+  title: string;
+  id: string;
+};

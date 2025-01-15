@@ -51,7 +51,7 @@ export default function CardComponent({
   content: string;
   cards: Card[];
 }) {
-  const { highlightData } = useHeptabaseStore();
+  const { highlightData, mentionInfos } = useHeptabaseStore();
 
   const parsedContent = JSON.parse(content);
   const transformedContent = transformListItems(parsedContent.content).map(
@@ -144,7 +144,7 @@ export default function CardComponent({
           Link.extend({
             name: "link",
           }),
-          CustomCard.configure({ cards }),
+          CustomCard.configure({ cards, mentionInfos }),
           Li,
           OrderedList.extend({
             name: "numbered_list_item",

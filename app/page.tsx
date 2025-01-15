@@ -48,6 +48,14 @@ export default async function Home() {
     <Container
       initalData={cardsWithParentId}
       highlightData={data?.highlightElements}
+      mentionInfos={
+        data?.mentionInfos
+          ? data?.mentionInfos.map(
+              (item: { data: { title: string; id: string }; type: string }) =>
+                item.data
+            )
+          : []
+      }
     />
   );
 }
