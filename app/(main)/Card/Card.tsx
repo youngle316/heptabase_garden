@@ -1,6 +1,7 @@
 import CustomCard from "@/components/CustomCard";
 import CustomColor from "@/components/CustomColor";
 import CustomDate from "@/components/CustomDate";
+import CustomEmbed from "@/components/CustomEmbed";
 import Li from "@/components/CustomLi";
 import { MathBlock, MathInline } from "@/components/CustomMath";
 import CustomSection from "@/components/CustomSection";
@@ -10,6 +11,7 @@ import CustomTodoListItem from "@/components/CustomTodoList";
 import { ToggleListItem } from "@/components/CustomToggleList";
 import CustomVideo from "@/components/CustomVideo";
 import CustomWhiteboard from "@/components/CustomWhiteboard";
+import { useHeptabaseStore } from "@/store/heptabase";
 import {
   transformBulletList,
   transformListItems,
@@ -49,6 +51,8 @@ export default function CardComponent({
   content: string;
   cards: Card[];
 }) {
+  const { highlightData } = useHeptabaseStore();
+
   const parsedContent = JSON.parse(content);
   const transformedContent = transformListItems(parsedContent.content).map(
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -80,6 +84,7 @@ export default function CardComponent({
           Blockquote,
           CustomWhiteboard,
           CustomSection,
+          CustomEmbed.configure({ highlightData, cards }),
           HardBreak.extend({
             name: "hard_break",
           }),

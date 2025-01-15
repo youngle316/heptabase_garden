@@ -39,5 +39,10 @@ export default async function Home() {
 
   const cardsWithParentId = addParentIdToContent(data?.cards);
 
-  return <Container initalData={cardsWithParentId} />;
+  return (
+    <Container
+      initalData={cardsWithParentId}
+      highlightData={data?.highlightElements}
+    />
+  );
 }

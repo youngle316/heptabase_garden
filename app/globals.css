@@ -146,6 +146,14 @@ body {
     --map-color-svg: #3b976f;
 
     --border-white-sect: hsl(0, 0%, 68%);
+
+    --annotation-red: #eb5353;
+    --annotation-pink: #ea68c6;
+    --annotation-purple: #a968ea;
+    --annotation-blue: #11a7d3;
+    --annotation-green: #11c85a;
+    --annotation-yellow: #ffd20b;
+    --annotation-orange: #ff8934;
   }
   .dark {
     --background: 214 7% 15%;
@@ -196,6 +204,14 @@ body {
     --map-color-svg: #4ca9ad;
 
     --border-white-sect: hsl(0, 0%, 58%);
+
+    --annotation-red: #eb5353;
+    --annotation-pink: #ea68c6;
+    --annotation-purple: #a968ea;
+    --annotation-blue: #11a7d3;
+    --annotation-green: #11c85a;
+    --annotation-yellow: #ffd20b;
+    --annotation-orange: #ff8934;
   }
 }
 

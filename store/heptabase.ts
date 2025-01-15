@@ -2,10 +2,14 @@ import { create } from 'zustand';
 
 const useHeptabaseStore = create<{
   allCards: Card[] | [];
+  highlightData: HightlightElement[] | [];
   setAllCards: (card: Card[]) => void;
+  setHighlightData: (highlightData: HightlightElement[]) => void;
 }>((set) => ({
   allCards: [],
+  highlightData: [],
   setAllCards: (card) => set({ allCards: card }),
+  setHighlightData: (highlightData) => set({ highlightData }),
 }));
 
 const useCardIdNums = create<{
