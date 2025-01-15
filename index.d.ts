@@ -4,7 +4,10 @@ type Card = {
   content: string;
   lastEditedTime: string;
   title: string;
+  date: string;
 };
+
+type Journal = Card & {};
 
 type NumberedListItem = {
   type: 'numbered_list_item';

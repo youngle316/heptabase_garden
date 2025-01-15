@@ -107,7 +107,7 @@ export default function CardComponent({
           CustomTableRow,
           CustomTodoListItem,
           CustomVideo,
-          CustomDate,
+          CustomDate.configure({ cards }),
           HorizontalRule.extend({
             name: "horizontal_rule",
           }),

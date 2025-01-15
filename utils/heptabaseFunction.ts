@@ -133,3 +133,14 @@ function mergeNumberedListItems(items: Content[]): Content[] {
 
   return result;
 }
+
+export function mergeCardsAndJournals(cards: Card[], journals: Card[]) {
+  const newJournals = journals.map((journal) => {
+    return {
+      ...journal,
+      id: journal.date,
+      title: journal.date,
+    };
+  });
+  return [...cards, ...newJournals];
+}

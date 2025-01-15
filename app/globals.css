@@ -94,6 +94,10 @@ body {
     @apply cursor-default hover:bg-transparent hover:shadow-none dark:hover:bg-transparent dark:hover:shadow-none;
   }
 
+  .text-danger {
+    @apply text-[#E14646] dark:text-[#d92626];
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 18%;

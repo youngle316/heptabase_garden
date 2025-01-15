@@ -4,7 +4,7 @@ import { useCardIds, useHeptabaseStore } from "@/store/heptabase";
 import dayjs from "dayjs";
 import hljs from "highlight.js";
 import { MathpixMarkdownModel as MM } from "mathpix-markdown-it";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function CardContent({
   cardId,
@@ -18,6 +18,18 @@ export default function CardContent({
   const { allCards, setAllCards } = useHeptabaseStore();
   const { cardIds } = useCardIds();
 
+  const [journalInfo, setJournalInfo] = useState({ title: "", day: "" });
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const cardInfo = cards.find((card) => card.id === cardId);
+    if (cardInfo?.date) {
+      const day = dayjs(cardInfo.date).format("dddd");
+      setJournalInfo({ title: cardInfo.title, day });
+    }
+  }, []);
+
+  // 初始执行
   useEffect(() => {
     // 初始执行
     hljs.highlightAll();
@@ -195,6 +207,17 @@ export default function CardContent({
 
   return (
     <>
+      {journalInfo.title && (
+        <div className="py-12">
+          <div className="rounded-xl px-0.5">
+            <div className="mb-3 text-danger text-label">{journalInfo.day}</div>
+            <div className="font-semibold text-4xl text-primary">
+              {dayjs(journalInfo.title).format("MMM D, YYYY")}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />

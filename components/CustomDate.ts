@@ -5,38 +5,39 @@ import dayjs from 'dayjs';
 
 const CustomDate = Node.create({
   name: 'date',
-
   group: 'block',
-
   content: 'inline*',
 
-  defining: true,
-
-  parseHTML() {
-    return [
-      {
-        tag: 'p',
-      },
-    ];
+  addOptions() {
+    return {
+      cards: [],
+    };
   },
 
-  renderHTML({ HTMLAttributes }) {
-    const date = HTMLAttributes.date;
+  renderHTML({ HTMLAttributes, node }) {
+    const date = node.attrs.date;
     const formattedDate = date ? dayjs(date).format('MMM D, YYYY') : '';
+
+    const cards = this.options.cards || [];
+    const id = node.attrs.date;
+    const card = cards.find((c: Card) => c.id === id);
+    const parentId = node.attrs.parentId;
 
     return [
       'p',
       mergeAttributes(HTMLAttributes, {
-        'data-node-type': 'paragraph',
-        'data-node-id': HTMLAttributes.id,
+        'data-type': 'card',
+        'data-card-id': id,
+        class: `card ${card ? '' : 'invalid-card'}`,
+        'data-parent-id': parentId,
+        noreferrer: card ? undefined : 'true',
       }),
       [
         'span',
         [
           'span',
           {
-            class:
-              'flex items-center rounded-sm text-active transition-[background-color,box-shadow] duration-100 ease-in hover:bg-light-grey shadow-[0_0_0_3px_transparent] hover:shadow-[0_0_0_3px_var(--light-grey)]',
+            class: 'flex items-center rounded-sm',
           },
           [
             'svg',
@@ -84,7 +85,7 @@ const CustomDate = Node.create({
             'span',
             {
               class:
-                'border-b-solid border-b border-light-grey text-middle-hard-grey',
+                'border-solid border-b border-[rgba(0,0,0,0.1)] dark:border-[rgba(255,255,255,0.08)]',
             },
             formattedDate,
           ],
