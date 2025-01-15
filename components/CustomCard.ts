@@ -31,11 +31,18 @@ const CustomCard = Node.create({
         ...HTMLAttributes,
         'data-type': 'card',
         'data-card-id': cardId,
-        class: 'card',
+        class: `card ${card ? '' : 'invalid-card'}`,
         'data-parent-id': parentId,
         noreferrer: card ? undefined : 'true',
       },
-      card ? card.title : node.attrs.text || cardId,
+      [
+        'span',
+        {
+          class:
+            'border-b-solid border-b border-[rgba(0,0,0,0.1)] dark:border-[rgba(255,255,255,0.08)]',
+        },
+        card ? card.title : node.attrs.text || 'Invalid Card',
+      ],
     ];
   },
 });
