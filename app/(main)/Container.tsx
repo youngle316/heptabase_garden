@@ -5,13 +5,20 @@ import { useEffect } from "react";
 import Content from "./Content";
 import Navbar from "./Navbar";
 
-export default function Container({ initalData }: { initalData: Card[] }) {
-  const { allCards, setAllCards } = useHeptabaseStore();
+export default function Container({
+  initalData,
+  highlightData,
+}: {
+  initalData: Card[];
+  highlightData: HightlightElement[];
+}) {
+  const { allCards, setAllCards, setHighlightData } = useHeptabaseStore();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setAllCards(initalData);
-  }, [initalData]);
+    setHighlightData(highlightData);
+  }, [initalData, highlightData]);
 
   return (
     <div className="flex h-screen w-full flex-col md:mx-auto">

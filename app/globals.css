@@ -13,21 +13,14 @@ body {
   .prose h2,
   .prose h3 {
     border-bottom: 1px solid var(--foreground);
+    @apply mt-[1em] mb-[0.25em]
   }
   .prose u {
     @apply underline underline-offset-4 decoration-[0.05em];
   }
 
   .prose a {
-    @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline;
-  }
-
-  .prose a:hover {
-    @apply text-[#207DFF] dark:text-[#61C6FA] underline-offset-4 underline;
-  }
-
-  .prose a:active {
-    @apply text-[#207DFF] dark:text-[#61C6FA] underline-offset-4 underline;
+    @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer border-solid border-b border-[#207DFF] dark:border-[#61C6FA] no-underline;
   }
 
   .prose ul > ul > li::marker {
@@ -44,11 +37,15 @@ body {
   }
 
   .prose hr {
-    @apply mt-0;
+    @apply m-[0.25rem] h-4 border-[rgba(0,0,0,0.13)] dark:border-[rgba(255,255,255,0.12)];
   }
 
-  .prose table p {
-    @apply m-0;
+  .prose strong {
+    @apply text-inherit;
+  }
+
+  .prose p {
+    @apply my-[1px] py-[3px] px-[0.125rem];
   }
 
   .prose table {
@@ -90,8 +87,13 @@ body {
   }
 
   .card {
-    @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer underline-offset-4 underline decoration-black/10 dark:decoration-white/10;
+    @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer rounded-sm ease-in transition-[background-color,box-shadow] dark:hover:bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(0,0,0,0.08)] hover:shadow-[0_0_0_1px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_0_1px_rgba(255,255,255,0.08)];
   }
+
+  .invalid-card {
+    @apply cursor-default hover:bg-transparent hover:shadow-none dark:hover:bg-transparent dark:hover:shadow-none;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 18%;
@@ -142,6 +144,14 @@ body {
     --map-color-svg: #3b976f;
 
     --border-white-sect: hsl(0, 0%, 68%);
+
+    --annotation-red: #eb5353;
+    --annotation-pink: #ea68c6;
+    --annotation-purple: #a968ea;
+    --annotation-blue: #11a7d3;
+    --annotation-green: #11c85a;
+    --annotation-yellow: #ffd20b;
+    --annotation-orange: #ff8934;
   }
   .dark {
     --background: 214 7% 15%;
@@ -192,6 +202,14 @@ body {
     --map-color-svg: #4ca9ad;
 
     --border-white-sect: hsl(0, 0%, 58%);
+
+    --annotation-red: #eb5353;
+    --annotation-pink: #ea68c6;
+    --annotation-purple: #a968ea;
+    --annotation-blue: #11a7d3;
+    --annotation-green: #11c85a;
+    --annotation-yellow: #ffd20b;
+    --annotation-orange: #ff8934;
   }
 }
 

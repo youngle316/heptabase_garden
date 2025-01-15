@@ -6,14 +6,28 @@ export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const whiteboardId = CONFIG.whiteboardId;
-  const data = await fetch(
-    `https://api.dabing.one?whiteboard_id=${whiteboardId}`
-  );
-  const cardContent = await data.json();
-  if (cardContent.code === 200 && cardContent.result === "success") {
+
+  try {
+    const data = await fetch(
+      `https://api.heptabase.com/v1/whiteboard-sharing/?secret=${whiteboardId}`,
+      {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Accept-Encoding": "gzip, deflate, br, zstd",
+          "Accept-Language": "en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,zh-CN;q=0.6",
+        },
+      }
+    );
+
+    if (!data.ok) {
+      return "";
+    }
+
+    const cardContent = await data.json();
     return cardContent;
+  } catch (error) {
+    return "";
   }
-  return "";
 }
 
 export default async function Home() {
@@ -23,7 +37,12 @@ export default async function Home() {
     return <div>There is no data. Please check your whiteboardId</div>;
   }
 
-  const cardsWithParentId = addParentIdToContent(data?.data?.cards);
+  const cardsWithParentId = addParentIdToContent(data?.cards);
 
-  return <Container initalData={cardsWithParentId} />;
+  return (
+    <Container
+      initalData={cardsWithParentId}
+      highlightData={data?.highlightElements}
+    />
+  );
 }
