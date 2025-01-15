@@ -51,8 +51,8 @@ body {
     @apply text-inherit;
   }
 
-  .prose table p {
-    @apply m-0;
+  .prose p {
+    @apply my-[1px] py-[3px] px-[0.125rem];
   }
 
   .prose table {
