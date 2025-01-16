@@ -48,7 +48,8 @@ html {
     @apply text-inherit;
   }
 
-  .prose p {
+  .prose p:has(text),
+  .prose p:has(*) {
     @apply my-[1px] py-[3px] px-[0.125rem];
   }
 
@@ -316,7 +317,8 @@ html {
   @apply flex min-w-0 flex-grow flex-col;
 }
 
-.nestedBlocks > p {
+.nestedBlocks > p:has(text),
+.nestedBlocks > p:has(*) {
   @apply py-[3px] px-[0.125rem];
 }
 
