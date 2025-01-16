@@ -82,7 +82,7 @@ export default function CardComponent({
           ToggleListItem,
           Code,
           Blockquote,
-          CustomWhiteboard,
+          CustomWhiteboard.configure({ mentionInfos }),
           CustomSection,
           CustomEmbed.configure({ highlightData, cards }),
           HardBreak.extend({

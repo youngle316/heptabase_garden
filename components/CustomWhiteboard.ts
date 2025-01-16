@@ -5,6 +5,12 @@ export const CustomWhiteboard = Node.create({
   group: 'inline',
   inline: true,
 
+  addOptions() {
+    return {
+      mentionInfos: [],
+    };
+  },
+
   addAttributes() {
     return {
       whiteboardId: {
@@ -25,6 +31,12 @@ export const CustomWhiteboard = Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
+    const mentionInfos = this.options.mentionInfos;
+    const whiteboardId = HTMLAttributes.whiteboardId;
+    const whiteboard = mentionInfos.find(
+      (info: MentionInfo) => info.id === whiteboardId,
+    );
+
     return [
       'span',
       mergeAttributes({ contenteditable: 'false' }),
@@ -83,7 +95,7 @@ export const CustomWhiteboard = Node.create({
             class:
               'border-b-solid border-b border-light-grey text-middle-hard-grey',
           },
-          HTMLAttributes.whiteboardId || 'Untitled Whiteboard',
+          whiteboard?.title || 'Untitled Whiteboard',
         ],
       ],
     ];

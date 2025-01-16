@@ -8,12 +8,16 @@ body {
   width: 100%;
 }
 
+html {
+  font-size: 17px;
+}
+
 @layer base {
   .prose h1,
   .prose h2,
   .prose h3 {
     border-bottom: 1px solid var(--foreground);
-    @apply mt-[1em] mb-[0.25em]
+    @apply mt-[1em] mb-[0.25em];
   }
   .prose u {
     @apply underline underline-offset-4 decoration-[0.05em];
@@ -96,6 +100,14 @@ body {
 
   .text-danger {
     @apply text-[#E14646] dark:text-[#d92626];
+  }
+
+  .border-light-grey {
+    @apply border-[rgba(0,0,0,0.1)] dark:border-[rgba(255,255,255,0.08)];
+  }
+
+  .text-middle-hard-grey {
+    @apply text-[rgba(0,0,0,0.72)] dark:text-[rgba(255,255,255,0.65)];
   }
 
   :root {
