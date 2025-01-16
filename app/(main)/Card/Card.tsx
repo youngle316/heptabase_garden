@@ -51,7 +51,7 @@ export default function CardComponent({
   content: string;
   cards: Card[];
 }) {
-  const { highlightData } = useHeptabaseStore();
+  const { highlightData, mentionInfos } = useHeptabaseStore();
 
   const parsedContent = JSON.parse(content);
   const transformedContent = transformListItems(parsedContent.content).map(
@@ -82,7 +82,7 @@ export default function CardComponent({
           ToggleListItem,
           Code,
           Blockquote,
-          CustomWhiteboard,
+          CustomWhiteboard.configure({ mentionInfos }),
           CustomSection,
           CustomEmbed.configure({ highlightData, cards }),
           HardBreak.extend({
@@ -107,7 +107,7 @@ export default function CardComponent({
           CustomTableRow,
           CustomTodoListItem,
           CustomVideo,
-          CustomDate,
+          CustomDate.configure({ cards }),
           HorizontalRule.extend({
             name: "horizontal_rule",
           }),
@@ -144,7 +144,7 @@ export default function CardComponent({
           Link.extend({
             name: "link",
           }),
-          CustomCard.configure({ cards }),
+          CustomCard.configure({ cards, mentionInfos }),
           Li,
           OrderedList.extend({
             name: "numbered_list_item",

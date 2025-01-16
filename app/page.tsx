@@ -1,5 +1,8 @@
 import { CONFIG } from "@/site.config";
-import { addParentIdToContent } from "@/utils/heptabaseFunction";
+import {
+  addParentIdToContent,
+  mergeCardsAndJournals,
+} from "@/utils/heptabaseFunction";
 import Container from "./(main)/Container";
 
 export const revalidate = 3600;
@@ -37,12 +40,22 @@ export default async function Home() {
     return <div>There is no data. Please check your whiteboardId</div>;
   }
 
-  const cardsWithParentId = addParentIdToContent(data?.cards);
+  const mergedData = mergeCardsAndJournals(data?.cards, data?.journals);
+
+  const cardsWithParentId = addParentIdToContent(mergedData);
 
   return (
     <Container
       initalData={cardsWithParentId}
       highlightData={data?.highlightElements}
+      mentionInfos={
+        data?.mentionInfos
+          ? data?.mentionInfos.map(
+              (item: { data: { title: string; id: string }; type: string }) =>
+                item.data
+            )
+          : []
+      }
     />
   );
 }

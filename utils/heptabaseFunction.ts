@@ -38,6 +38,10 @@ export function generateCardIds(cards: Card[]) {
         cardIds.push(node.attrs.cardId);
       }
 
+      if (node.type === 'date' && node.attrs?.date) {
+        cardIds.push(node.attrs.date);
+      }
+
       if (node.content && Array.isArray(node.content)) {
         node.content.forEach(findCardIds);
       }
@@ -132,4 +136,15 @@ function mergeNumberedListItems(items: Content[]): Content[] {
   });
 
   return result;
+}
+
+export function mergeCardsAndJournals(cards: Card[], journals: Card[]) {
+  const newJournals = journals.map((journal) => {
+    return {
+      ...journal,
+      id: journal.date,
+      title: journal.date,
+    };
+  });
+  return [...cards, ...newJournals];
 }

@@ -4,7 +4,10 @@ type Card = {
   content: string;
   lastEditedTime: string;
   title: string;
+  date: string;
 };
+
+type Journal = Card & {};
 
 type NumberedListItem = {
   type: 'numbered_list_item';
@@ -34,4 +37,9 @@ type HightlightElement = {
     type: string;
     content: Array;
   };
+};
+
+type MentionInfo = {
+  title: string;
+  id: string;
 };

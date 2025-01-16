@@ -8,16 +8,20 @@ import Navbar from "./Navbar";
 export default function Container({
   initalData,
   highlightData,
+  mentionInfos,
 }: {
   initalData: Card[];
   highlightData: HightlightElement[];
+  mentionInfos: MentionInfo[];
 }) {
-  const { allCards, setAllCards, setHighlightData } = useHeptabaseStore();
+  const { allCards, setAllCards, setHighlightData, setMentionInfos } =
+    useHeptabaseStore();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setAllCards(initalData);
     setHighlightData(highlightData);
+    setMentionInfos(mentionInfos);
   }, [initalData, highlightData]);
 
   return (
