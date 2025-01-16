@@ -48,8 +48,7 @@ html {
     @apply text-inherit;
   }
 
-  .prose p:has(text),
-  .prose p:has(*) {
+  .prose p:not(:empty) {
     @apply my-[1px] py-[3px] px-[0.125rem];
   }
 
@@ -89,6 +88,13 @@ html {
 
   .prose blockquote {
     @apply font-normal;
+  }
+
+  .prose ul {
+    @apply my-1;
+  }
+  .prose ul li {
+    @apply my-1;
   }
 
   .card {
