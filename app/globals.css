@@ -27,6 +27,10 @@ html {
     @apply text-[#207DFF] dark:text-[#61C6FA] cursor-pointer border-solid border-b border-[#207DFF] dark:border-[#61C6FA] no-underline;
   }
 
+  .prose a:hover {
+    @apply text-[#207DFF] dark:text-[#61C6FA];
+  }
+
   .prose ul > ul > li::marker {
     content: "◦";
   }
