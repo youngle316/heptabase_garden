@@ -205,6 +205,79 @@ export default function CardContent({
     window.dispatchEvent(new Event("urlchange"));
   };
 
+  useEffect(() => {
+    const processLinks = async () => {
+      const links = document.querySelectorAll("p > a");
+      for (const link of links) {
+        const href = link.getAttribute("href");
+        if (!href) continue;
+
+        const parentP = link.closest("p");
+        if (!parentP) continue;
+
+        if (href.includes("open.spotify.com/track/")) {
+          const trackId = href.match(/track\/([^?]+)/)?.[1];
+          if (trackId) {
+            const spotifyEmbed = document.createElement("div");
+            spotifyEmbed.className = "my-1";
+            spotifyEmbed.innerHTML = `
+              <iframe 
+                style="border-radius:12px" 
+                src="https://open.spotify.com/embed/track/${trackId}?utm_source=generator" 
+                width="100%" 
+                height="152" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+              </iframe>
+            `;
+            parentP.insertAdjacentElement("afterend", spotifyEmbed);
+            continue;
+          }
+        }
+
+        if (href.includes("douban.com")) {
+          try {
+            const response = await fetch(
+              `/api/douban?url=${encodeURIComponent(href)}`
+            );
+            const data = await response.json();
+
+            const doubanInfo = document.createElement("div");
+            doubanInfo.className =
+              "douban-info flex items-center gap-3 p-4 my-2 bg-douban rounded-lg border-douban";
+            doubanInfo.innerHTML = `
+              <div class="flex flex-col gap-[6px]">
+              <div class="text-muted-foreground text-xs">豆瓣</div>
+                <p>
+                <a href="${data.url}" target="_blank">${data.title}</a>
+                </p>
+                <div class="text-sm text-muted-foreground">${
+                  data.description
+                }</div>
+              </div>
+              <div class="flex-shrink-0">
+                ${
+                  data.image
+                    ? `<img src="/api/proxy-image?url=${encodeURIComponent(
+                        data.image
+                      )}" alt="${data.title}" class="w-16 rounded" />`
+                    : ""
+                }
+              </div>
+            `;
+            parentP.insertAdjacentElement("afterend", doubanInfo);
+          } catch (error) {
+            console.error("Error fetching douban data:", error);
+          }
+        }
+      }
+    };
+
+    processLinks();
+  }, []);
+
   return (
     <>
       {journalInfo.title && (
