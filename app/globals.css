@@ -97,8 +97,13 @@ html {
   .prose ul {
     @apply my-1;
   }
+
   .prose ul li {
     @apply my-1;
+  }
+
+  .prose img {
+    @apply my-[0.25rem];
   }
 
   .card {
@@ -119,6 +124,14 @@ html {
 
   .text-middle-hard-grey {
     @apply text-[rgba(0,0,0,0.72)] dark:text-[rgba(255,255,255,0.65)];
+  }
+
+  .bg-douban {
+    @apply bg-[#F2F3F5] dark:bg-[#2B2D31];
+  }
+
+  .border-douban {
+    @apply border-l-4 border-solid border-[#E3E5E8] dark:border-[#1E1F22];
   }
 
   :root {
