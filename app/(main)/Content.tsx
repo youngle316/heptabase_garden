@@ -77,7 +77,7 @@ export default function Content({ cards }: { cards: Card[] }) {
       const maxCards = Math.floor(
         (windowWidth - padding * 2) / (cardWidth + gap)
       );
-      setVisibleCards(Math.min(maxCards, cardIdNums.length));
+      setVisibleCards(maxCards);
     };
 
     const calculateIsMobile = () => {
