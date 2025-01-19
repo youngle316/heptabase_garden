@@ -23,6 +23,7 @@ It uses [Heptabase](https://heptabase.com/) as a CMS, the interface comes from [
 - Support dark mode
 - Support mobile
 - Support show links to the original notes
+- Support displaying Spotify and Douban links through embedding.
 
 ## Notes ❗
 
@@ -30,7 +31,6 @@ It uses [Heptabase](https://heptabase.com/) as a CMS, the interface comes from [
 - Images and videos uploaded directly to Heptabase cannot be loaded properly.
   - You can use image hosting services.
   - YouTube and Bilibili videos can be loaded properly.
-- The card linked in the card needs to be added to the whiteboard.
 
 
 ## How to use
