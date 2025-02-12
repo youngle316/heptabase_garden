@@ -91,7 +91,7 @@ html {
   }
 
   .prose blockquote {
-    @apply font-normal;
+    @apply font-normal mb-0 mt-[0.25rem];
   }
 
   .prose ul {
@@ -132,6 +132,14 @@ html {
 
   .border-douban {
     @apply border-l-4 border-solid border-[#E3E5E8] dark:border-[#1E1F22];
+  }
+
+  .bg-ultra-light-grey {
+    @apply bg-[rgba(0,0,0,0.04)] dark:bg-[rgba(255,255,255,0.06)];
+  }
+
+  .border-light-grey {
+    @apply border-[rgba(0,0,0,0.08)] dark:border-[rgba(255,255,255,0.08)];
   }
 
   :root {
