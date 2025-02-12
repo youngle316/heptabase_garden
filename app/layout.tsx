@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "@/components/ui/toaster";
 import { SEO } from "@/site.config";
 import "katex/dist/katex.min.css";
 import type { Metadata } from "next";
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light">
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

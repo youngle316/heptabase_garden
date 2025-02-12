@@ -77,6 +77,10 @@ export default Node.create({
     const highlight = highlightData.find(
       (h: HightlightElement) => h.id === node.attrs.objectId,
     );
+    const card = cards.find((c: Card) => c.id === node.attrs.objectId);
+
+    console.log('highlightData', highlightData);
+    console.log('cards', cards);
 
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const generateHTMLByTiptap = (content: any) => {
@@ -173,6 +177,10 @@ export default Node.create({
       );
     };
 
+    const cardContent = card?.content
+      ? generateHTMLByTiptap(JSON.parse(card?.content)?.content)
+      : '';
+
     const htmlContent = highlight?.highlight?.content
       ? generateHTMLByTiptap(highlight?.highlight?.content)
       : '';
@@ -180,6 +188,9 @@ export default Node.create({
     const noteContent = highlight?.note?.content
       ? generateHTMLByTiptap(highlight?.note?.content)
       : '';
+
+    const parseCard = new DOMParser();
+    const docCard = parseCard.parseFromString(cardContent, 'text/html');
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
@@ -214,6 +225,10 @@ export default Node.create({
       return [tagName, attrs, ...children];
     };
 
+    const childNodesCard = Array.from(docCard.body.children).map((child) =>
+      parseNode(child),
+    );
+
     const childNodes = Array.from(doc.body.children).map((child) =>
       parseNode(child),
     );
@@ -224,52 +239,75 @@ export default Node.create({
 
     const isNoteEmpty = highlight?.note?.content[0].attrs.id === null;
 
-    return [
-      'div',
-      {
-        'data-type': 'embed',
-        class: 'relative my-[0.5rem]',
-        ...HTMLAttributes,
-      },
-      [
+    if (highlight) {
+      return [
         'div',
-        { class: 'rounded border border-foreground/10 border-solid py-4' },
+        {
+          'data-type': 'embed',
+          class: 'relative my-[0.5rem]',
+          ...HTMLAttributes,
+        },
         [
           'div',
-          { class: 'flex' },
+          { class: 'rounded border border-foreground/10 border-solid py-4' },
           [
             'div',
-            {
-              class: 'shrink-0 rounded-r-sm w-1',
-              style: `background-color: var(--annotation-${highlight?.color})`,
-            },
-          ],
-          [
-            'div',
-            {
-              class:
-                'ml-3 mr-4 rounded bg-[rgba(0,0,0,0.04)] dark:bg-[rgba(255,255,255,0.06)] dark:text-[rgba(255,255,255,0.65)] overflow-x-hidden grow',
-            },
+            { class: 'flex' },
             [
               'div',
+              {
+                class: 'shrink-0 rounded-r-sm w-1',
+                style: `background-color: var(--annotation-${highlight?.color})`,
+              },
+            ],
+            [
+              'div',
+              {
+                class:
+                  'ml-3 mr-4 rounded bg-[rgba(0,0,0,0.04)] dark:bg-[rgba(255,255,255,0.06)] dark:text-[rgba(255,255,255,0.65)] overflow-x-hidden grow',
+              },
               [
                 'div',
-                {
-                  class: 'py-[3px] px-[0.75rem]',
-                },
-                ...childNodes,
+                [
+                  'div',
+                  {
+                    class: 'py-[3px] px-[0.75rem]',
+                  },
+                  ...childNodes,
+                ],
               ],
             ],
           ],
+          isNoteEmpty
+            ? ['div']
+            : [
+                'div',
+                { class: 'pt-[0.5rem] px-[1.75rem] pb-0' },
+                ...childNodesNote,
+              ],
         ],
-        isNoteEmpty
-          ? ['div']
-          : [
-              'div',
-              { class: 'pt-[0.5rem] px-[1.75rem] pb-0' },
-              ...childNodesNote,
-            ],
-      ],
-    ];
+      ];
+    }
+
+    if (card) {
+      return [
+        'div',
+        {
+          'data-type': 'embed',
+          class: 'relative my-[0.5rem]',
+          ...HTMLAttributes,
+        },
+        [
+          'div',
+          {
+            class:
+              'py-6 px-7 bg-ultra-light-grey border-light-grey border border-solid rounded',
+          },
+          ...childNodesCard,
+        ],
+      ];
+    }
+
+    return ['div'];
   },
 });

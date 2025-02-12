@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import hljs from "highlight.js";
 import { MathpixMarkdownModel as MM } from "mathpix-markdown-it";
 import { useEffect, useState } from "react";
+import ShareContent from "./ShareContent";
 
 export default function CardContent({
   cardId,
@@ -295,8 +296,13 @@ export default function CardContent({
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
 
-      <div className="mt-8 text-muted-foreground text-xs">
-        Last updated {formatDate(getCardInfo(cardId).lastEditedTime)}.
+      <div className="group mt-8 flex items-center justify-between text-muted-foreground text-xs">
+        <div>
+          Last updated {formatDate(getCardInfo(cardId).lastEditedTime)}.
+        </div>
+        <div className="opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          {cardId && <ShareContent cardId={cardId} />}
+        </div>
       </div>
       <div className="mt-8 rounded-md border border-foreground/10 p-4 pt-0 font-medium text-muted-foreground">
         <p>Links to this note:</p>

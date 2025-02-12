@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.6",
     "@tiptap/core": "^2.10.4",
     "@tiptap/extension-blockquote": "^2.10.4",
     "@tiptap/extension-bold": "^2.10.4",
