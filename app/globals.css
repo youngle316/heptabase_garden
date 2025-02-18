@@ -45,7 +45,15 @@ html {
   }
 
   .prose hr {
-    @apply m-[0.25rem] h-4 border-[rgba(0,0,0,0.13)] dark:border-[rgba(255,255,255,0.12)];
+    @apply my-[0.5rem] border-[rgba(0,0,0,0.13)] dark:border-[rgba(255,255,255,0.12)];
+  }
+
+  .prose ol {
+    @apply m-0;
+  }
+
+  .prose ol li {
+    @apply m-0;
   }
 
   .prose strong {
