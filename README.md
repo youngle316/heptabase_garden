@@ -1,4 +1,4 @@
-![cover](https://3aed3bd.webp.li/202412301102553.png)
+![cover](https://3aed3bd.webp.li/202502240819547.png)
 
 # Heptabase Garden
 
@@ -12,7 +12,7 @@ This is a simple website that displays your Heptabase notes in a beautiful way. 
 
 And this is the [original whiteboard](https://app.heptabase.com/w/641ea3e118cf2f1d33cda32e8580f77efa59094fc805b326c9fc8c6dd16489ee)
 
-It uses [Heptabase](https://heptabase.com/) as a CMS, the interface comes from [draJiang](https://github.com/draJiang)
+It uses [Heptabase](https://heptabase.com/) as a CMS
 
 
 ## Features
@@ -95,4 +95,4 @@ If you want to update the project, you can do the following:
 
 ## Thanks
 
-The project's inspiration and the interfaces used are from [draJiang](https://github.com/draJiang).
+The project's inspiration from [draJiang](https://github.com/draJiang).
