@@ -79,9 +79,6 @@ export default Node.create({
     );
     const card = cards.find((c: Card) => c.id === node.attrs.objectId);
 
-    console.log('highlightData', highlightData);
-    console.log('cards', cards);
-
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const generateHTMLByTiptap = (content: any) => {
       return generateHTML(
@@ -214,7 +211,7 @@ export default Node.create({
           }
 
           if (child.nodeType === 3) {
-            const text = child.textContent?.trim();
+            const text = child.textContent;
             return text ? text : '';
           }
 
