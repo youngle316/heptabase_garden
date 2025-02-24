@@ -11,6 +11,10 @@ import CustomTodoListItem from '@/components/CustomTodoList';
 import { ToggleListItem } from '@/components/CustomToggleList';
 import CustomVideo from '@/components/CustomVideo';
 import CustomWhiteboard from '@/components/CustomWhiteboard';
+import {
+  transformBulletList,
+  transformListItems,
+} from '@/utils/heptabaseFunction';
 import { Node } from '@tiptap/core';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
@@ -81,10 +85,14 @@ export default Node.create({
 
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const generateHTMLByTiptap = (content: any) => {
+      const transformedContent = transformListItems(content).map(
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        (item: any) => transformBulletList(item),
+      );
       return generateHTML(
         {
           type: 'doc',
-          content: content,
+          content: transformedContent,
         },
         [
           Document,
