@@ -1,4 +1,4 @@
-![cover](https://3aed3bd.webp.li/202412301102553.png)
+![cover](https://3aed3bd.webp.li/202502240819547.png)
 
 # Heptabase 知识花园
 
@@ -10,7 +10,7 @@
 
 这是[原始白板](https://app.heptabase.com/w/641ea3e118cf2f1d33cda32e8580f77efa59094fc805b326c9fc8c6dd16489ee)
 
-它使用 [Heptabase](https://heptabase.com/) 作为 CMS，接口来自 [draJiang](https://github.com/draJiang)
+使用 [Heptabase](https://heptabase.com/) 作为 CMS
 
 ## 特性
 
@@ -91,4 +91,4 @@ ISR 是 Next.js 的一个特性，允许你在不重建整个站点的情况下�
 
 ## 致谢
 
-项目的灵感和使用的接口来自 [draJiang](https://github.com/draJiang)。
+项目的灵感来自 [draJiang](https://github.com/draJiang)。
