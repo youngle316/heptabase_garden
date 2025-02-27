@@ -242,7 +242,7 @@ export default Node.create({
       parseNode(child),
     );
 
-    const isNoteEmpty = highlight?.note?.content[0].attrs.id === null;
+    const isNoteEmpty = !highlight?.note?.content[0].content;
 
     if (highlight) {
       return [
