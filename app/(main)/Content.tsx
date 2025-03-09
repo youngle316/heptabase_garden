@@ -70,9 +70,9 @@ export default function Content({ cards }: { cards: Card[] }) {
 
   useEffect(() => {
     const calculateVisibleCards = () => {
-      const cardWidth = 580;
-      const padding = 16;
-      const gap = 16;
+      const cardWidth = 390;
+      const padding = 42;
+      const gap = 0;
       const windowWidth = window.innerWidth;
       const maxCards = Math.floor(
         (windowWidth - padding * 2) / (cardWidth + gap)
@@ -111,7 +111,7 @@ export default function Content({ cards }: { cards: Card[] }) {
   };
 
   return (
-    <div className="flex gap-6">
+    <div className="flex">
       {cardIdNums.length > 0 ? (
         <>
           {isMobile ? (
