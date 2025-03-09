@@ -159,7 +159,7 @@ export default function CardComponent({
 
   return (
     <div
-      className="prose h-screen w-full overflow-y-auto px-4 pt-4 pb-16 md:min-w-[550px] md:max-w-[580px]"
+      className="prose h-screen w-full overflow-y-auto px-[42px] pt-4 pb-16 md:w-[474px]"
       data-card-id={genCardId()}
     >
       <CardContent cardId={cardId} cards={cards} htmlContent={htmlContent} />
