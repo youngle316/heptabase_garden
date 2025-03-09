@@ -121,7 +121,7 @@ export default Node.create({
               if (!HTMLAttributes.src) {
                 return ['div', {}];
               }
-              return ['img', HTMLAttributes];
+              return ['img', { class: 'cursor-zoom-in', ...HTMLAttributes }];
             },
           }),
           Table,
