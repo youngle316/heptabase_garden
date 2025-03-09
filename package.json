@@ -43,6 +43,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
+    "framer-motion": "^12.4.10",
     "highlight.js": "^11.11.1",
     "katex": "^0.16.18",
     "lucide-react": "^0.469.0",

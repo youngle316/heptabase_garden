@@ -1,5 +1,6 @@
 "use client";
 
+import useImageZoom from "@/components/ImageZoom";
 import { useHeptabaseStore } from "@/store/heptabase";
 import { useEffect } from "react";
 import Content from "./Content";
@@ -14,6 +15,8 @@ export default function Container({
   highlightData: HightlightElement[];
   mentionInfos: MentionInfo[];
 }) {
+  const { ImageZoomOverlay } = useImageZoom();
+
   const { allCards, setAllCards, setHighlightData, setMentionInfos } =
     useHeptabaseStore();
 
@@ -32,6 +35,7 @@ export default function Container({
           <div className="flex-1 overflow-hidden">
             <Content cards={allCards} />
           </div>
+          <ImageZoomOverlay />
         </>
       ) : (
         <div />
