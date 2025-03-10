@@ -459,3 +459,18 @@ html {
     @apply font-bold;
   }
 }
+
+/* Skeleton loading animation for images */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.image-skeleton {
+  position: relative;
+  overflow: hidden;
+}

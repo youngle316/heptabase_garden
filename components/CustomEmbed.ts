@@ -121,7 +121,18 @@ export default Node.create({
               if (!HTMLAttributes.src) {
                 return ['div', {}];
               }
-              return ['img', { class: 'cursor-zoom-in', ...HTMLAttributes }];
+              return [
+                'img',
+                {
+                  class: 'cursor-zoom-in image-skeleton',
+                  loading: 'lazy',
+                  style:
+                    'background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; min-height: 100px; min-width: 100%;',
+                  onload:
+                    "this.style.background='none'; this.style.animation='none'; this.style.minHeight='0'; this.style.minWidth='0';",
+                  ...HTMLAttributes,
+                },
+              ];
             },
           }),
           Table,
