@@ -4,6 +4,7 @@ import CustomDate from "@/components/CustomDate";
 import CustomEmbed from "@/components/CustomEmbed";
 import Li from "@/components/CustomLi";
 import { MathBlock, MathInline } from "@/components/CustomMath";
+import { CustomPDFCard } from "@/components/CustomPDFCard";
 import CustomSection from "@/components/CustomSection";
 import { CustomTableCell } from "@/components/CustomTableCell";
 import { CustomTableRow } from "@/components/CustomTableRow";
@@ -164,6 +165,7 @@ export default function CardComponent({
           BulletList.extend({
             name: "bullet_list_item",
           }),
+          CustomPDFCard.configure({ mentionInfos }),
         ]
       )
     : "";

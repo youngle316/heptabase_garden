@@ -40,6 +40,7 @@ import Text from '@tiptap/extension-text';
 import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
 import { generateHTML } from '@tiptap/html';
+import CustomPDFCard from './CustomPDFCard';
 
 export default Node.create({
   name: 'embed',
@@ -78,6 +79,8 @@ export default Node.create({
   renderHTML({ HTMLAttributes, node }) {
     const highlightData = this.options.highlightData || [];
     const cards = this.options.cards || [];
+    const mentionInfos = this.options.mentionInfos || [];
+
     const highlight = highlightData.find(
       (h: HightlightElement) => h.id === node.attrs.objectId,
     );
@@ -189,6 +192,7 @@ export default Node.create({
           BulletList.extend({
             name: 'bullet_list_item',
           }),
+          CustomPDFCard.configure({ mentionInfos }),
         ],
       );
     };
