@@ -1,11 +1,11 @@
 "use client";
 
 import useImageZoom from "@/components/ImageZoom";
+import CardHover from "@/components/cardHover";
 import { useHeptabaseStore } from "@/store/heptabase";
 import { useEffect } from "react";
 import Content from "./Content";
 import Navbar from "./Navbar";
-
 export default function Container({
   initalData,
   highlightData,
@@ -36,6 +36,7 @@ export default function Container({
             <Content cards={allCards} />
           </div>
           <ImageZoomOverlay />
+          <CardHover />
         </>
       ) : (
         <div />

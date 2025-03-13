@@ -11,10 +11,12 @@ export default function CardContent({
   cardId,
   htmlContent,
   cards,
+  showCardsExtraConntent = true,
 }: {
   cardId: string;
   htmlContent: string;
   cards: Card[];
+  showCardsExtraConntent?: boolean;
 }) {
   const { allCards, setAllCards } = useHeptabaseStore();
   const { cardIds } = useCardIds();
@@ -296,36 +298,46 @@ export default function CardContent({
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
 
-      <div className="group mt-8 flex items-center justify-between text-muted-foreground text-xs">
-        <div>
-          Last updated {formatDate(getCardInfo(cardId).lastEditedTime)}.
-        </div>
-        <div className="opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-          {cardId && <ShareContent cardId={cardId} />}
-        </div>
-      </div>
-      <div className="mt-8 rounded-md border border-foreground/10 p-4 pt-0 font-medium text-muted-foreground">
-        <p>Links to this note:</p>
-        <div>
-          {findLinkedCards().length > 0 ? (
-            findLinkedCards().map((item) => {
-              const card = allCards.find((card) => card.id === item);
-              return (
-                <ul
-                  className="text-[#207DFF] text-sm dark:text-[#61C6FA]"
-                  key={item}
-                >
-                  <li onClick={() => handleLinksCardClick(item)}>
-                    <span className="cursor-pointer">{card?.title}</span>
-                  </li>
-                </ul>
-              );
-            })
-          ) : (
-            <div>📭</div>
-          )}
-        </div>
-      </div>
+      {showCardsExtraConntent && (
+        <>
+          <div className="group mt-8 flex items-center justify-between text-muted-foreground text-xs">
+            <div>
+              Last updated {formatDate(getCardInfo(cardId).lastEditedTime)}.
+            </div>
+            <div className="opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+              {cardId && <ShareContent cardId={cardId} />}
+            </div>
+          </div>
+          <div className="mt-8 rounded-md border border-foreground/10 p-4 pt-0 font-medium text-muted-foreground">
+            <p>Links to this note:</p>
+            <div>
+              {findLinkedCards().length > 0 ? (
+                findLinkedCards().map((item) => {
+                  const card = allCards.find((card) => card.id === item);
+                  return (
+                    <ul
+                      className="text-[#207DFF] text-sm dark:text-[#61C6FA]"
+                      key={item}
+                    >
+                      <li onClick={() => handleLinksCardClick(item)}>
+                        <span
+                          data-type="card"
+                          data-card-id={card?.id}
+                          className="cursor-pointer"
+                        >
+                          {card?.title}
+                        </span>
+                      </li>
+                    </ul>
+                  );
+                })
+              ) : (
+                <div>📭</div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

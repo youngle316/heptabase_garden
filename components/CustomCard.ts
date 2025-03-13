@@ -35,7 +35,7 @@ const CustomCard = Node.create({
         ...HTMLAttributes,
         'data-type': 'card',
         'data-card-id': cardId,
-        class: `card ${card ? '' : 'invalid-card'}`,
+        class: `card ${card ? '' : 'invalid-card'} card-hover-trigger`,
         'data-parent-id': parentId,
         noreferrer: card ? undefined : 'true',
       },
