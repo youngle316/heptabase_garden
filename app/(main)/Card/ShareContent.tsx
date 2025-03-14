@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Share } from "lucide-react";
+import { Share2 } from "lucide-react";
 
 export default function ShareContent({ cardId }: { cardId: string }) {
   const { toast } = useToast();
@@ -22,9 +21,11 @@ export default function ShareContent({ cardId }: { cardId: string }) {
   };
 
   return (
-    <Button onClick={handleShare}>
-      <Share />
-      Share
-    </Button>
+    <div
+      onClick={handleShare}
+      className="cursor-pointer transition-opacity hover:opacity-80"
+    >
+      <Share2 size={16} />
+    </div>
   );
 }

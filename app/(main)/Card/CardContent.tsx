@@ -304,9 +304,7 @@ export default function CardContent({
             <div>
               Last updated {formatDate(getCardInfo(cardId).lastEditedTime)}.
             </div>
-            <div className="opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-              {cardId && <ShareContent cardId={cardId} />}
-            </div>
+            <div>{cardId && <ShareContent cardId={cardId} />}</div>
           </div>
           <div className="mt-8 rounded-md border border-foreground/10 p-4 pt-0 font-medium text-muted-foreground">
             <p>Links to this note:</p>
