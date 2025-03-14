@@ -148,3 +148,30 @@ export function mergeCardsAndJournals(cards: Card[], journals: Card[]) {
   });
   return [...cards, ...newJournals];
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export const parseNode = (node: Element): any[] => {
+  const tagName = node.tagName.toLowerCase();
+  const attrs: Record<string, string> = {};
+
+  for (const attr of node.attributes) {
+    attrs[attr.name] = attr.value;
+  }
+
+  const children = Array.from(node.childNodes)
+    .map((child) => {
+      if (child.nodeType === 1) {
+        return parseNode(child as Element);
+      }
+
+      if (child.nodeType === 3) {
+        const text = child.textContent;
+        return text ? text : '';
+      }
+
+      return '';
+    })
+    .filter(Boolean);
+
+  return [tagName, attrs, ...children];
+};

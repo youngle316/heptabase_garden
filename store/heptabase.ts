@@ -36,4 +36,12 @@ const useCardIds = create<{
   setCardIds: (cardIds) => set({ cardIds }),
 }));
 
-export { useCardIdNums, useCardIds, useHeptabaseStore };
+const useIsMobile = create<{
+  isMobile: boolean;
+  setIsMobile: (isMobile: boolean) => void;
+}>((set) => ({
+  isMobile: false,
+  setIsMobile: (isMobile) => set({ isMobile }),
+}));
+
+export { useCardIdNums, useCardIds, useHeptabaseStore, useIsMobile };

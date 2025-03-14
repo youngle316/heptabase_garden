@@ -1,7 +1,7 @@
 "use client";
 
 import { SEO } from "@/site.config";
-import { useCardIdNums, useCardIds } from "@/store/heptabase";
+import { useCardIdNums, useCardIds, useIsMobile } from "@/store/heptabase";
 import { generateCardIds } from "@/utils/heptabaseFunction";
 import type { Metadata } from "next/types";
 import { Fragment, useEffect, useState } from "react";
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 export default function Content({ cards }: { cards: Card[] }) {
   const { cardIdNums, setCardIdNums } = useCardIdNums();
   const [visibleCards, setVisibleCards] = useState<number>(0);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
   const { setCardIds } = useCardIds();
+  const { isMobile, setIsMobile } = useIsMobile();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
