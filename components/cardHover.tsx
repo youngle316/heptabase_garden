@@ -13,6 +13,7 @@ interface TooltipState {
     cardId: string;
     cardContent: string;
     cards: [];
+    element?: HTMLElement;
   } | null;
 }
 
@@ -40,9 +41,8 @@ export default function CardHover() {
     };
   }, []);
 
-  const calculatePosition = (rect: DOMRect) => {
+  const calculatePosition = (rect: DOMRect, tooltipHeight = 384) => {
     const tooltipWidth = 448;
-    const tooltipHeight = 672;
     const margin = 10;
     const scale = 0.85;
     const windowWidth = window.innerWidth;
@@ -55,15 +55,60 @@ export default function CardHover() {
     let top = rect.top - 20;
 
     if (left + scaledWidth > windowWidth) {
-      left = rect.left - tooltipWidth - margin;
+      left = rect.left - tooltipWidth * scale - margin;
     }
 
     if (top + scaledHeight > windowHeight) {
-      top = rect.top - scaledHeight - margin;
+      top = windowHeight - scaledHeight;
     }
 
     return { position: { top, left } };
   };
+
+  useEffect(() => {
+    if (!tooltip.visible || !tooltip.cardInfo || !tooltipRef.current) {
+      return;
+    }
+
+    const updateTooltipPosition = () => {
+      const cardElement = tooltip.cardInfo?.element;
+
+      if (cardElement && tooltipRef.current) {
+        const rect = cardElement.getBoundingClientRect();
+        const tooltipHeight = tooltipRef.current.offsetHeight;
+        const { position } = calculatePosition(rect, tooltipHeight);
+        setTooltip((prev) => ({ ...prev, position }));
+      } else {
+        setTooltip((prev) => ({ ...prev, visible: false }));
+      }
+    };
+
+    updateTooltipPosition();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateTooltipPosition();
+    });
+
+    resizeObserver.observe(tooltipRef.current);
+
+    let ticking = false;
+    const scrollListener = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateTooltipPosition();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", scrollListener, { passive: true });
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("scroll", scrollListener);
+    };
+  }, [tooltip.visible, tooltip.cardInfo]);
 
   useEffect(() => {
     if (isMobile) {
@@ -104,6 +149,7 @@ export default function CardHover() {
               cardId: cardId as string,
               cardContent: htmlContent,
               cards: allCards as [],
+              element: cardElement,
             },
           });
         } catch (error) {
@@ -158,9 +204,7 @@ export default function CardHover() {
     }
 
     const handleScroll = () => {
-      const cardElement = document.querySelector(
-        `[data-card-id="${tooltip.cardInfo?.cardId}"]`
-      ) as HTMLElement;
+      const cardElement = tooltip.cardInfo?.element;
       if (cardElement) {
         const rect = cardElement.getBoundingClientRect();
         const { position } = calculatePosition(rect);
@@ -195,7 +239,7 @@ export default function CardHover() {
   return (
     <div
       ref={tooltipRef}
-      className="prose fixed z-50 max-h-[672px] w-[448px] overflow-y-hidden rounded-md border border-foreground/10 bg-background p-4 shadow-lg"
+      className="prose fixed z-50 max-h-[384px] w-[448px] overflow-y-hidden rounded-md border border-foreground/10 bg-background p-4 shadow-lg"
       style={{
         top: `${tooltip.position.top}px`,
         left: `${tooltip.position.left}px`,

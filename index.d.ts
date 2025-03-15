@@ -17,7 +17,6 @@ type NumberedListItem = {
   content: LiContent[];
 };
 
-// 更新 Content 类型
 type Content = BulletListItem | NumberedListItem;
 
 type SourceLocation = {

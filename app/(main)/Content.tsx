@@ -108,7 +108,6 @@ export default function Content({ cards }: { cards: Card[] }) {
     return cards.find((card) => card.id === cardId)?.title || "";
   };
 
-  // 计算哪些卡片应该显示，哪些应该关闭
   const getVisibleAndClosedCards = () => {
     if (cardIdNums.length === 0)
       return {
