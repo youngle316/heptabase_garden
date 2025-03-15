@@ -327,7 +327,7 @@ export default function CardContent({
                           data-card-id={card?.id}
                           className="cursor-pointer"
                         >
-                          {card?.title}
+                          {card?.title || card?.id}
                         </span>
                       </li>
                     </ul>

@@ -54,7 +54,7 @@ export default function ClosedCard({
       className="writing-vertical-rl flex flex-shrink-0 justify-between border-foreground/10 border-x px-2 py-4 text-xl"
     >
       <div className="flex-1 cursor-pointer text-foreground hover:text-[#207DFF] hover:dark:text-[#61C6FA]">
-        {title}
+        {title || cardId}
       </div>
 
       <div
