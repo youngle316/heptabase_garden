@@ -6,6 +6,7 @@ export default function Navbar() {
   const handleLogoClick = () => {
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.delete("cardId");
+    searchParams.delete("firstVisibleCardId");
     window.history.replaceState({}, "", `?${searchParams.toString()}`);
     window.dispatchEvent(new Event("urlchange"));
   };

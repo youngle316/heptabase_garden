@@ -117,6 +117,10 @@ export default function CardContent({
           }
         }
         searchParams.append("cardId", cardId);
+
+        searchParams.delete("firstVisibleCardId");
+        searchParams.append("firstVisibleCardId", cardId);
+
         window.history.pushState({}, "", `?${searchParams.toString()}`);
         window.dispatchEvent(new Event("urlchange"));
       }

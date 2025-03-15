@@ -36,6 +36,7 @@ export default function Content({ cards }: { cards: Card[] }) {
         const searchParams = new URLSearchParams(window.location.search);
 
         searchParams.append("cardId", aboutCardId);
+        searchParams.append("firstVisibleCardId", aboutCardId);
         window.history.pushState({}, "", `?${searchParams.toString()}`);
         window.dispatchEvent(new Event("urlchange"));
       }
@@ -107,6 +108,38 @@ export default function Content({ cards }: { cards: Card[] }) {
     return cards.find((card) => card.id === cardId)?.title || "";
   };
 
+  // 计算哪些卡片应该显示，哪些应该关闭
+  const getVisibleAndClosedCards = () => {
+    if (cardIdNums.length === 0)
+      return {
+        visibleCardIds: [],
+        beforeClosedCardIds: [],
+        afterClosedCardIds: [],
+      };
+
+    const params = new URLSearchParams(window.location.search);
+    const firstVisibleCardId = params.get("firstVisibleCardId");
+
+    const firstVisibleIndex = cardIdNums.findIndex(
+      (cardId) => cardId === firstVisibleCardId
+    );
+
+    let startIndex = firstVisibleIndex >= 0 ? firstVisibleIndex : 0;
+
+    if (cardIdNums.length - firstVisibleIndex < visibleCards) {
+      startIndex = Math.max(0, cardIdNums.length - visibleCards);
+    }
+
+    const endIndex = Math.min(startIndex + visibleCards, cardIdNums.length);
+
+    const visibleCardIds = cardIdNums.slice(startIndex, endIndex);
+
+    const beforeClosedCardIds = cardIdNums.slice(0, startIndex);
+    const afterClosedCardIds = cardIdNums.slice(endIndex);
+
+    return { visibleCardIds, beforeClosedCardIds, afterClosedCardIds };
+  };
+
   return (
     <div className="flex">
       {cardIdNums.length > 0 ? (
@@ -129,28 +162,45 @@ export default function Content({ cards }: { cards: Card[] }) {
           ) : (
             <>
               <div className="flex">
-                {cardIdNums.slice(0, -visibleCards).map((cardId, index) => (
-                  <ClosedCard
-                    key={cardId}
-                    title={getCardTitleByCardId(cardId)}
-                    cardId={cardId}
-                    index={index}
-                  />
-                ))}
+                {getVisibleAndClosedCards().beforeClosedCardIds.map(
+                  (cardId, index) => (
+                    <ClosedCard
+                      key={cardId}
+                      title={getCardTitleByCardId(cardId)}
+                      cardId={cardId}
+                      index={index}
+                    />
+                  )
+                )}
               </div>
 
-              {cardIdNums.slice(-visibleCards).map((cardId, index) => (
-                <Fragment key={cardId}>
-                  <Card
-                    cards={cards}
-                    cardId={cardId}
-                    content={getCardContentByCardId(cardId)}
-                  />
-                  {index < cardIdNums.slice(-visibleCards).length - 1 && (
-                    <div className="w-[1px] bg-foreground/10 dark:bg-foreground/10" />
-                  )}
-                </Fragment>
-              ))}
+              {getVisibleAndClosedCards().visibleCardIds.map(
+                (cardId, index) => (
+                  <Fragment key={cardId}>
+                    <Card
+                      cards={cards}
+                      cardId={cardId}
+                      content={getCardContentByCardId(cardId)}
+                    />
+                    {index < cardIdNums.slice(-visibleCards).length - 1 && (
+                      <div className="w-[1px] bg-foreground/10 dark:bg-foreground/10" />
+                    )}
+                  </Fragment>
+                )
+              )}
+
+              <div className="flex">
+                {getVisibleAndClosedCards().afterClosedCardIds.map(
+                  (cardId, index) => (
+                    <ClosedCard
+                      key={cardId}
+                      title={getCardTitleByCardId(cardId)}
+                      cardId={cardId}
+                      index={index}
+                    />
+                  )
+                )}
+              </div>
             </>
           )}
         </>
