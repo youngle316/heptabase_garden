@@ -76,6 +76,10 @@ export default function CardHover() {
 
       if (cardElement) {
         const cardId = cardElement.getAttribute("data-card-id");
+        const noreferrer = cardElement.getAttribute("noreferrer");
+        if (noreferrer) {
+          return;
+        }
         const rect = cardElement.getBoundingClientRect();
 
         const card = allCards.find((card) => card.id === cardId);
