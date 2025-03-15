@@ -15,11 +15,9 @@ export default function ClosedCard({
     const cardIndex = existingCardIds.indexOf(cardId);
 
     if (cardIndex !== -1) {
-      const keepCardIds = existingCardIds.slice(0, cardIndex + 1);
-      searchParams.delete("cardId");
-      for (const id of keepCardIds) {
-        searchParams.append("cardId", id);
-      }
+      searchParams.delete("firstVisibleCardId");
+      searchParams.append("firstVisibleCardId", cardId);
+
       window.history.pushState({}, "", `?${searchParams.toString()}`);
       window.dispatchEvent(new Event("urlchange"));
     }
@@ -29,13 +27,18 @@ export default function ClosedCard({
     e.stopPropagation();
     const searchParams = new URLSearchParams(window.location.search);
     const existingCardIds = searchParams.getAll("cardId");
+    const firstVisibleCardId = searchParams.get("firstVisibleCardId");
     const cardIndex = existingCardIds.indexOf(cardId);
 
     if (cardIndex !== -1) {
-      const keepCardIds = existingCardIds.slice(0, cardIndex);
+      existingCardIds.splice(cardIndex, 1);
       searchParams.delete("cardId");
-      for (const id of keepCardIds) {
+      for (const id of existingCardIds) {
         searchParams.append("cardId", id);
+      }
+      searchParams.delete("firstVisibleCardId");
+      if (firstVisibleCardId) {
+        searchParams.append("firstVisibleCardId", firstVisibleCardId);
       }
       window.history.pushState({}, "", `?${searchParams.toString()}`);
       window.dispatchEvent(new Event("urlchange"));
@@ -51,16 +54,15 @@ export default function ClosedCard({
       className="writing-vertical-rl flex flex-shrink-0 justify-between border-foreground/10 border-x px-2 py-4 text-xl"
     >
       <div className="flex-1 cursor-pointer text-foreground hover:text-[#207DFF] hover:dark:text-[#61C6FA]">
-        {title}
+        {title || cardId}
       </div>
-      {index !== 0 && (
-        <div
-          onClick={handleCloseCard}
-          className="flex cursor-pointer items-center hover:text-zinc-500"
-        >
-          <X size={24} className="text-foreground" />
-        </div>
-      )}
+
+      <div
+        onClick={handleCloseCard}
+        className="flex cursor-pointer items-center hover:text-zinc-500"
+      >
+        <X size={24} className="text-foreground" />
+      </div>
     </div>
   );
 }

@@ -47,7 +47,6 @@ export function generateCardIds(cards: Card[]) {
       }
     };
 
-    // 从根节点开始递归查找
     if (content.content) {
       content.content.forEach(findCardIds);
     }

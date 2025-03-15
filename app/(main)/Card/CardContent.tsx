@@ -32,23 +32,18 @@ export default function CardContent({
     }
   }, []);
 
-  // 初始执行
   useEffect(() => {
-    // 初始执行
     hljs.highlightAll();
 
-    // 创建观察器来监听DOM变化
     const observer = new MutationObserver(() => {
       hljs.highlightAll();
     });
 
-    // 开始观察
     observer.observe(document.body, {
       childList: true,
       subtree: true,
     });
 
-    // 清理函数
     return () => observer.disconnect();
   }, []);
 
@@ -117,6 +112,10 @@ export default function CardContent({
           }
         }
         searchParams.append("cardId", cardId);
+
+        searchParams.delete("firstVisibleCardId");
+        searchParams.append("firstVisibleCardId", cardId);
+
         window.history.pushState({}, "", `?${searchParams.toString()}`);
         window.dispatchEvent(new Event("urlchange"));
       }
@@ -128,16 +127,14 @@ export default function CardContent({
     if (!Array.isArray(items)) return false;
 
     for (const item of items) {
-      // 检查当前项是否为 toggle_list_item 且 id 匹配
       if (item.type === "toggle_list_item" && item.attrs?.id === nodeId) {
         item.attrs.folded = !item.attrs.folded;
-        return true; // 找到并修改后立即返回
+        return true;
       }
 
-      // 递归检查 content 数组
       if (item.content && Array.isArray(item.content)) {
         if (updateFolded(item.content, nodeId)) {
-          return true; // 如果在子内容中找到并修改，也立即返回
+          return true;
         }
       }
     }
@@ -166,13 +163,11 @@ export default function CardContent({
       event.stopPropagation();
       const target = event.target as HTMLElement;
 
-      // 查找最近的带有 data-type="card" 的父元素
       const cardElement = target.closest('[data-type="card"]');
       if (cardElement) {
         handleCardClick(cardElement as HTMLElement);
       }
 
-      // 查找最近的带有 data-type="toggle_list_item_icon" 的父元素
       const toggleElement = target.closest(
         '[data-type="toggle_list_item_icon"]'
       );
@@ -323,7 +318,7 @@ export default function CardContent({
                           data-card-id={card?.id}
                           className="cursor-pointer"
                         >
-                          {card?.title}
+                          {card?.title || card?.id}
                         </span>
                       </li>
                     </ul>
