@@ -70,13 +70,10 @@ export default function Content({ cards }: { cards: Card[] }) {
 
   useEffect(() => {
     const calculateVisibleCards = () => {
-      const cardWidth = 390;
-      const padding = 42;
-      const gap = 0;
+      const cardWidth = 448;
+      const padding = 20;
       const windowWidth = window.innerWidth;
-      const maxCards = Math.floor(
-        (windowWidth - padding * 2) / (cardWidth + gap)
-      );
+      const maxCards = Math.floor(windowWidth / (cardWidth + padding * 2));
       setVisibleCards(maxCards);
     };
 

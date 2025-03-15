@@ -41,8 +41,8 @@ export default function CardHover() {
   }, []);
 
   const calculatePosition = (rect: DOMRect) => {
-    const tooltipWidth = 474;
-    const tooltipHeight = 600;
+    const tooltipWidth = 448;
+    const tooltipHeight = 672;
     const margin = 10;
     const scale = 0.85;
     const windowWidth = window.innerWidth;
@@ -191,7 +191,7 @@ export default function CardHover() {
   return (
     <div
       ref={tooltipRef}
-      className="prose fixed z-50 max-h-[600px] w-[474px] overflow-y-hidden rounded-md border border-foreground/10 bg-background p-4 shadow-lg"
+      className="prose fixed z-50 max-h-[672px] w-[448px] overflow-y-hidden rounded-md border border-foreground/10 bg-background p-4 shadow-lg"
       style={{
         top: `${tooltip.position.top}px`,
         left: `${tooltip.position.left}px`,
