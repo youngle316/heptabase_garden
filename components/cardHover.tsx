@@ -26,7 +26,8 @@ export default function CardHover() {
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  const { allCards, highlightData, mentionInfos } = useHeptabaseStore();
+  const { allCards, highlightData, mentionInfos, allMediaCards } =
+    useHeptabaseStore();
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -135,6 +136,7 @@ export default function CardHover() {
               highlightData,
               cards: allCards,
               mentionInfos,
+              allMediaCards,
             })
           : "";
 
