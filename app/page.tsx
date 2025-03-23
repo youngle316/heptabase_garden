@@ -44,8 +44,18 @@ export default async function Home() {
 
   const cardsWithParentId = addParentIdToContent(mergedData);
 
+  const allMediaCards = data?.mediaCards.map((item: MediaCard) => {
+    return {
+      id: item.id,
+      type: item.type,
+      title: item.title,
+      link: item.link,
+    };
+  });
+
   return (
     <Container
+      allMediaCards={allMediaCards}
       initalData={cardsWithParentId}
       highlightData={data?.highlightElements}
       mentionInfos={
