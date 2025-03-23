@@ -14,7 +14,6 @@ export default function CardComponent({
   cardId: string;
   content: string;
   cards: Card[];
-  allMediaCards: MediaCard[];
 }) {
   const { highlightData, mentionInfos, allMediaCards } = useHeptabaseStore();
 
