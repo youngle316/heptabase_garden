@@ -14,8 +14,9 @@ export default function CardComponent({
   cardId: string;
   content: string;
   cards: Card[];
+  allMediaCards: MediaCard[];
 }) {
-  const { highlightData, mentionInfos } = useHeptabaseStore();
+  const { highlightData, mentionInfos, allMediaCards } = useHeptabaseStore();
 
   const parsedContent = JSON.parse(content);
   const transformedContent = transformListItems(parsedContent.content).map(
@@ -33,6 +34,7 @@ export default function CardComponent({
         highlightData,
         cards,
         mentionInfos,
+        allMediaCards,
       })
     : "";
 

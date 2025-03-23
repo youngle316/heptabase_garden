@@ -4,16 +4,20 @@ const useHeptabaseStore = create<{
   allCards: Card[] | [];
   highlightData: HightlightElement[] | [];
   mentionInfos: MentionInfo[] | [];
+  allMediaCards: MediaCard[] | [];
   setAllCards: (card: Card[]) => void;
   setHighlightData: (highlightData: HightlightElement[]) => void;
   setMentionInfos: (mentionInfos: MentionInfo[]) => void;
+  setAllMediaCards: (allMediaCards: MediaCard[]) => void;
 }>((set) => ({
   allCards: [],
   highlightData: [],
   mentionInfos: [],
+  allMediaCards: [],
   setAllCards: (card) => set({ allCards: card }),
   setHighlightData: (highlightData) => set({ highlightData }),
   setMentionInfos: (mentionInfos) => set({ mentionInfos }),
+  setAllMediaCards: (allMediaCards) => set({ allMediaCards }),
 }));
 
 const useCardIdNums = create<{

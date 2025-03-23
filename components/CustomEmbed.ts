@@ -1,6 +1,6 @@
 import { generateCardHTML } from '@/utils/generateCardHTML';
 import { parseNode } from '@/utils/heptabaseFunction';
-import { Node } from '@tiptap/core';
+import { Node, mergeAttributes } from '@tiptap/core';
 
 export default Node.create({
   name: 'embed',
@@ -11,6 +11,7 @@ export default Node.create({
     return {
       highlightData: [],
       cards: [],
+      allMediaCards: [],
     };
   },
 
@@ -40,11 +41,15 @@ export default Node.create({
     const highlightData = this.options.highlightData || [];
     const cards = this.options.cards || [];
     const mentionInfos = this.options.mentionInfos || [];
-
+    const allMediaCards = this.options.allMediaCards || [];
     const highlight = highlightData.find(
       (h: HightlightElement) => h.id === node.attrs.objectId,
     );
     const card = cards.find((c: Card) => c.id === node.attrs.objectId);
+
+    const mediaCard = allMediaCards.find(
+      (m: MediaCard) => m.id === node.attrs.objectId,
+    );
 
     const cardContent = card?.content
       ? generateCardHTML({
@@ -52,6 +57,7 @@ export default Node.create({
           highlightData,
           cards,
           mentionInfos,
+          allMediaCards,
         })
       : '';
 
@@ -61,6 +67,7 @@ export default Node.create({
           highlightData,
           cards,
           mentionInfos,
+          allMediaCards,
         })
       : '';
 
@@ -70,6 +77,7 @@ export default Node.create({
           highlightData,
           cards,
           mentionInfos,
+          allMediaCards,
         })
       : '';
 
@@ -165,6 +173,77 @@ export default Node.create({
       ];
     }
 
+    if (mediaCard && mediaCard.type === 'video') {
+      const generateVideoUrl = () => {
+        if (!mediaCard.link) return '';
+
+        const url = mediaCard.link;
+
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+          const videoId = url.includes('youtube.com')
+            ? url.split('v=')[1]?.split('&')[0]
+            : url.split('youtu.be/')[1]?.split('?')[0];
+
+          if (videoId) {
+            return `https://www.youtube.com/embed/${videoId}`;
+          }
+        }
+
+        if (url.includes('bilibili.com')) {
+          const bvid = url.match(/BV\w+/)?.[0];
+          if (bvid) {
+            return `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&autoplay=false`;
+          }
+        }
+        return url;
+      };
+
+      return [
+        'div',
+        mergeAttributes(
+          {
+            'data-node-type': 'video',
+            'data-node-id': node.attrs.id,
+            class:
+              'transition-[width] duration-300 ease-out w-full my-2 self-center',
+            style: 'width: 100%;',
+          },
+          HTMLAttributes,
+        ),
+        [
+          'div',
+          {
+            class: 'relative w-full cursor-pointer overflow-hidden touch-none',
+          },
+          [
+            'div',
+            {
+              class: '',
+              style: 'aspect-ratio: 1.77778 / 1;',
+            },
+            [
+              'div',
+              { class: 'size-full' },
+              [
+                'iframe',
+                {
+                  class: 'block size-full',
+                  frameborder: '0',
+                  allowfullscreen: '',
+                  allow:
+                    'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+                  referrerpolicy: 'strict-origin-when-cross-origin',
+                  title: 'Video player',
+                  width: '640',
+                  height: '360',
+                  src: generateVideoUrl(),
+                },
+              ],
+            ],
+          ],
+        ],
+      ];
+    }
     return ['div'];
   },
 });

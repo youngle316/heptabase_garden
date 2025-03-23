@@ -10,22 +10,30 @@ export default function Container({
   initalData,
   highlightData,
   mentionInfos,
+  allMediaCards,
 }: {
   initalData: Card[];
   highlightData: HightlightElement[];
   mentionInfos: MentionInfo[];
+  allMediaCards: MediaCard[];
 }) {
   const { ImageZoomOverlay } = useImageZoom();
 
-  const { allCards, setAllCards, setHighlightData, setMentionInfos } =
-    useHeptabaseStore();
+  const {
+    allCards,
+    setAllCards,
+    setHighlightData,
+    setMentionInfos,
+    setAllMediaCards,
+  } = useHeptabaseStore();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setAllCards(initalData);
     setHighlightData(highlightData);
     setMentionInfos(mentionInfos);
-  }, [initalData, highlightData]);
+    setAllMediaCards(allMediaCards);
+  }, [initalData, highlightData, mentionInfos, allMediaCards]);
 
   return (
     <div className="flex h-screen w-full flex-col md:mx-auto">

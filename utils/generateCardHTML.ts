@@ -46,11 +46,13 @@ export function generateCardHTML({
   highlightData,
   cards,
   mentionInfos,
+  allMediaCards,
 }: {
   content: [];
   highlightData: HightlightElement[] | [];
   cards: Card[] | [];
   mentionInfos: MentionInfo[] | [];
+  allMediaCards: MediaCard[] | [];
 }) {
   const transformedContent = transformListItems(content).map(
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -78,7 +80,7 @@ export function generateCardHTML({
           Blockquote,
           CustomWhiteboard.configure({ mentionInfos }),
           CustomSection,
-          CustomEmbed.configure({ highlightData, cards }),
+          CustomEmbed.configure({ highlightData, cards, allMediaCards }),
           HardBreak.extend({
             name: 'hard_break',
           }),

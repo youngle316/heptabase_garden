@@ -42,3 +42,10 @@ type MentionInfo = {
   title: string;
   id: string;
 };
+
+type MediaCard = {
+  id: string;
+  type: string;
+  title: string;
+  link: string;
+};
