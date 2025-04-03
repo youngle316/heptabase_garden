@@ -231,45 +231,44 @@ export default function CardContent({
               </iframe>
             `;
             parentP.insertAdjacentElement("afterend", spotifyEmbed);
-            continue;
           }
         }
 
-        if (href.includes("douban.com")) {
-          try {
-            const response = await fetch(
-              `/api/douban?url=${encodeURIComponent(href)}`
-            );
-            const data = await response.json();
+        // if (href.includes("douban.com")) {
+        //   try {
+        //     const response = await fetch(
+        //       `/api/douban?url=${encodeURIComponent(href)}`
+        //     );
+        //     const data = await response.json();
 
-            const doubanInfo = document.createElement("div");
-            doubanInfo.className =
-              "douban-info flex items-center gap-3 p-4 my-2 bg-douban rounded-lg border-douban";
-            doubanInfo.innerHTML = `
-              <div class="flex flex-col gap-[6px]">
-              <div class="text-muted-foreground text-xs">豆瓣</div>
-                <p>
-                <a href="${data.url}" target="_blank">${data.title}</a>
-                </p>
-                <div class="text-sm text-muted-foreground">${
-                  data.description
-                }</div>
-              </div>
-              <div class="flex-shrink-0">
-                ${
-                  data.image
-                    ? `<img src="/api/proxy-image?url=${encodeURIComponent(
-                        data.image
-                      )}" alt="${data.title}" class="w-16 rounded" />`
-                    : ""
-                }
-              </div>
-            `;
-            parentP.insertAdjacentElement("afterend", doubanInfo);
-          } catch (error) {
-            console.error("Error fetching douban data:", error);
-          }
-        }
+        //     const doubanInfo = document.createElement("div");
+        //     doubanInfo.className =
+        //       "douban-info flex items-center gap-3 p-4 my-2 bg-douban rounded-lg border-douban";
+        //     doubanInfo.innerHTML = `
+        //       <div class="flex flex-col gap-[6px]">
+        //       <div class="text-muted-foreground text-xs">豆瓣</div>
+        //         <p>
+        //         <a href="${data.url}" target="_blank">${data.title}</a>
+        //         </p>
+        //         <div class="text-sm text-muted-foreground">${
+        //           data.description
+        //         }</div>
+        //       </div>
+        //       <div class="flex-shrink-0">
+        //         ${
+        //           data.image
+        //             ? `<img src="/api/proxy-image?url=${encodeURIComponent(
+        //                 data.image
+        //               )}" alt="${data.title}" class="w-16 rounded" />`
+        //             : ""
+        //         }
+        //       </div>
+        //     `;
+        //     parentP.insertAdjacentElement("afterend", doubanInfo);
+        //   } catch (error) {
+        //     console.error("Error fetching douban data:", error);
+        //   }
+        // }
       }
     };
 
