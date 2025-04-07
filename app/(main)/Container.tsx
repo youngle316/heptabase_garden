@@ -36,13 +36,11 @@ export default function Container({
   }, [initalData, highlightData, mentionInfos, allMediaCards]);
 
   return (
-    <div className="flex h-screen w-full flex-col md:mx-auto">
+    <div className="flex h-full w-full flex-col md:mx-auto">
       {allCards.length > 0 ? (
         <>
           <Navbar />
-          <div className="flex-1 overflow-hidden">
-            <Content cards={allCards} />
-          </div>
+          <Content cards={allCards} />
           <ImageZoomOverlay />
           <CardHover />
         </>
