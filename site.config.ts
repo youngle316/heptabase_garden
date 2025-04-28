@@ -28,5 +28,5 @@ export const Nav = [
   },
 ];
 
-export const umamiTrackId = '203ac7a7-a2bb-4f8b-b581-3724f616354';
+export const umamiTrackId = '203ac7a7-a2bb-4f8b-b581-3724f6163543';
 export const umamiHost = 'https://umami.yanglele.cc/script.js';
