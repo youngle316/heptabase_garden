@@ -6,11 +6,13 @@ export const CONFIG = {
   // heptabase whiteboard id
   whiteboardId:
     '641ea3e118cf2f1d33cda32e8580f77efa59094fc805b326c9fc8c6dd16489ee',
+  coverImage: 'https://3aed3bd.webp.li/heptabase_coverimage.png',
 };
 
 export const SEO = {
   title: CONFIG.title,
   description: CONFIG.description,
+  coverImage: CONFIG.coverImage,
 };
 
 export const Nav = [
@@ -25,6 +27,10 @@ export const Nav = [
   {
     label: 'Media',
     pageId: '566e17b0-9f65-4ba8-8905-7acf2f1f112f',
+  },
+  {
+    label: 'Run',
+    pageId: 'https://run.yanglele.cc',
   },
 ];
 

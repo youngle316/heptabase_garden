@@ -21,16 +21,24 @@ function NavContent() {
   return (
     <div>
       <div className="hidden items-center gap-4 md:flex">
-        {Nav.map((nav) => (
-          <Button
-            key={nav.pageId}
-            onClick={() => handleNavClick(nav.pageId)}
-            variant="link"
-            className="h-6 px-0 py-0"
-          >
-            {nav.label}
-          </Button>
-        ))}
+        {Nav.map((nav) => {
+          const isExternal =
+            typeof nav.pageId === "string" && nav.pageId.startsWith("https://");
+          return (
+            <Button
+              key={nav.pageId}
+              onClick={() =>
+                isExternal
+                  ? window.open(nav.pageId, "_blank", "noopener,noreferrer")
+                  : handleNavClick(nav.pageId)
+              }
+              variant="link"
+              className="h-6 px-0 py-0"
+            >
+              {nav.label}
+            </Button>
+          );
+        })}
       </div>
       <div className="md:hidden">
         <DropdownMenu>
