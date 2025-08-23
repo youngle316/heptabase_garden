@@ -1,8 +1,7 @@
+import { SEO } from "site.config";
+
 export function meta() {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+  return [{ title: SEO.title }, { name: "description", content: SEO.description }];
 }
 
 export default function Home() {
