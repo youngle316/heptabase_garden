@@ -1,4 +1,5 @@
 import { useHeptabaseStore } from "~/store/heptabase";
+import Content from "./Content";
 import Navbar from "./Navbar";
 
 export default function Container() {
@@ -8,12 +9,12 @@ export default function Container() {
       {allCards.length > 0 ? (
         <>
           <Navbar />
-          {/*<Content cards={allCards} />*/}
+          <Content />
           {/*<ImageZoomOverlay />*/}
           {/*<CardHover />*/}
         </>
       ) : (
-        <div />
+        <span>There are no cards available.</span>
       )}
     </div>
   );

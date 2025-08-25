@@ -2,6 +2,8 @@ export type TiptapAttrs = {
   id: string;
   level: number;
   parentId?: string;
+  cardId?: string;
+  date?: string;
 };
 
 export type TiptapNode = {
@@ -55,6 +57,7 @@ export type Card = {
   spaceId: string;
   title: string;
   wasInsightGenerated: boolean;
+  isJournal?: boolean;
 };
 
 export type Journal = {
