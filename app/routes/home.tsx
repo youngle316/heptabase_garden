@@ -29,7 +29,7 @@ export async function loader(): Promise<LoaderData> {
       return { cardContent: null };
     }
 
-    const cardContent = await data.json();
+    const cardContent = (await data.json()) as LoaderData["cardContent"];
     return { cardContent };
   } catch (error) {
     console.log(error);

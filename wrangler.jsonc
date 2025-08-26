@@ -1,9 +1,15 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "react-router-app",
+  "name": "heptabase_garden",
   "compatibility_date": "2025-04-04",
   "main": "./workers/app.ts",
   "vars": {
     "VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "reflect.yanglele.cc",
+      "custom_domain": true
+    }
+  ]
 }

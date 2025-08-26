@@ -1,3 +1,4 @@
+import { Loader } from "lucide-react";
 import useImageZoom from "~/components/ImageZoom";
 import { useHeptabaseStore } from "~/store/heptabase";
 import Content from "./Content";
@@ -16,7 +17,9 @@ export default function Container() {
           <ImageZoomOverlay />
         </>
       ) : (
-        <span>There are no cards available.</span>
+        <div className="h-full w-full flex items-center justify-center">
+          <Loader className="animate-spin" />
+        </div>
       )}
     </div>
   );
