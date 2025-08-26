@@ -1,98 +1,87 @@
-![cover](https://3aed3bd.webp.li/202502240819547.png)
+# Welcome to React Router!
 
-# Heptabase Garden
+A modern, production-ready template for building full-stack React applications using React Router.
 
-> Deploy your own Heptabase-powered website in minutes with Next.js and Vercel.
-
-[中文版 README](README-CN.md)
-
-## Intro
-
-This is a simple website that displays your Heptabase notes in a beautiful way. [notes.younglele.cc](https://notes.yanglele.cc)
-
-And this is the [original whiteboard](https://app.heptabase.com/w/641ea3e118cf2f1d33cda32e8580f77efa59094fc805b326c9fc8c6dd16489ee)
-
-It uses [Heptabase](https://heptabase.com/) as a CMS
-
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
 
 ## Features
 
-- Display the notes content of Heptabase
-- Update Heptabase notes using ISR
-- Basically consistent with the official style of Heptabase
-- Support dark mode
-- Support mobile
-- Support show links to the original notes
-- Support displaying Spotify and Douban links through embedding.
+- 🚀 Server-side rendering
+- ⚡️ Hot Module Replacement (HMR)
+- 📦 Asset bundling and optimization
+- 🔄 Data loading and mutations
+- 🔒 TypeScript by default
+- 🎉 TailwindCSS for styling
+- 📖 [React Router docs](https://reactrouter.com/)
 
-## Notes ❗
+## Getting Started
 
-- The whiteboard must contain a card named 'About', which will be displayed as the homepage.
-- Images and videos uploaded directly to Heptabase cannot be loaded properly.
-  - You can use image hosting services.
-  - YouTube and Bilibili videos can be loaded properly.
+### Installation
 
+Install the dependencies:
 
-## How to use
+```bash
+npm install
+```
 
-All config is defined in [site.config.ts](https://github.com/youngle316/heptabase_garden/blob/main/site.config.ts)
+### Development
 
-This project requires a recent version of Node.js (recommend >= 16).
+Start the development server with HMR:
 
-1. Fork this repo
-2. Change a few values in [site.config.ts](https://github.com/youngle316/heptabase_garden/blob/main/site.config.ts)
-3. Must add a card named 'About' to the whiteboard, which will be displayed as the homepage.
-4. npm install
-5. npm run dev to test locally
-6. Deploy to Vercel
+```bash
+npm run dev
+```
 
-I tried to make configuration as easy as possible — All you really need to do to get started is edit `whiteboardId`.
+Your application will be available at `http://localhost:5173`.
 
-### How to get whiteboardId
+## Building for Production
 
-![whiteboardId](https://3aed3bd.webp.li/202412301210513.png)
+Create a production build:
 
-1. Open your Heptabase whiteboard
-2. Click the share button
-3. Copy the whiteboard id
+```bash
+npm run build
+```
 
-> app.heptabase.com/w/641ea3e118cf2f1d33cda32e8580f77efa59094fc805b326c9fc8c6dd16489ee， 641ea3e118cf2f1d33cda32e8580f77efa59094fc805b326c9fc8c6dd16489ee is whiteboardId
+## Deployment
 
-### How to deploy to Vercel
+### Docker Deployment
 
-After change your `whiteboardId` and commit your changes, you can deploy to Vercel.
+To build and run using Docker:
 
-1. create a new proeject in [vercel](https://vercel.com/)
-2. select your forked repo and click `import` button
-3. click `deploy` button
+```bash
+docker build -t my-app .
 
-## Update your notes
+# Run the container
+docker run -p 3000:3000 my-app
+```
 
-1. Open your Heptabase whiteboard
-2. Click the share button
-3. Click the Publish Changes Button
-4. Refresh your website
+The containerized application can be deployed to any platform that supports Docker, including:
 
-The Project uses ISR to update the notes, so you don't need to redeploy to update the notes.
+- AWS ECS
+- Google Cloud Run
+- Azure Container Apps
+- Digital Ocean App Platform
+- Fly.io
+- Railway
 
-### What is ISR?
+### DIY Deployment
 
-ISR is a feature of Next.js that allows you to update your website without rebuilding the entire site. It works by generating a static version of your site at build time, and then updating the static version when new content is published.
+If you're familiar with deploying Node applications, the built-in app server is production-ready.
 
-There is a `revalidate` in [page.tsx](https://github.com/youngle316/heptabase_garden/blob/main/app/page.tsx). When the value is 3600, it means one hour. It indicates that after the successful deployment, the webpage was opened for the first time, and the heptabase notes were updated within an hour. The interface will not display the latest content. You need to check the webpage again after an hour. At this time, the backend will rebuild, and after the rebuild is completed (usually within one or two minutes), refreshing the page will display the latest content.
+Make sure to deploy the output of `npm run build`
 
-You can set it according to your needs.
+```
+├── package.json
+├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
+├── build/
+│   ├── client/    # Static assets
+│   └── server/    # Server-side code
+```
 
-## Update Project
+## Styling
 
-If you want to update the project, you can do the following:
+This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
 
-- Update via the GitHub website
-  - Enter the repository you forked.
-  - Click the `Sync fork` button
-  - Click "Update branch" to proceed.
-- Redeploy Project
+---
 
-## Thanks
-
-The project's inspiration from [draJiang](https://github.com/draJiang).
+Built with ❤️ using React Router.
