@@ -134,10 +134,13 @@ export default function Content() {
     return { visibleCardIds, beforeClosedCardIds, afterClosedCardIds };
   };
 
+  console.log("cardIdNums", cardIdNums);
+  console.log("getVisibleAndClosedCards", getVisibleAndClosedCards());
+
   return (
     <div className="flex">
       {cardIdNums.length > 0 ? (
-        <div>
+        <div className="flex">
           {isMobile ? (
             <div>
               {cardIdNums.slice(-1).map((cardId) => {
