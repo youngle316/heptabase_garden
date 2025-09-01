@@ -1,45 +1,39 @@
-import { Mark } from '@tiptap/core';
+import { Mark } from "@tiptap/core";
 
 const CustomColor = Mark.create({
-  name: 'color',
+  name: "color",
 
   addOptions() {
     return {
-      types: ['textStyle'],
+      types: ["textStyle"],
     };
   },
 
   parseHTML() {
     return [
       {
-        style: 'color',
+        style: "color",
       },
       {
-        style: 'background-color',
+        style: "background-color",
       },
     ];
   },
 
   renderHTML({ HTMLAttributes }) {
-    const baseStyle = { lineHeight: 'inherit' };
+    let styleString = "line-height: inherit;";
 
-    const colorStyle =
-      HTMLAttributes.type === 'background'
-        ? {
-            ...baseStyle,
-            backgroundColor: HTMLAttributes.color
-              ? `var(--bg-${HTMLAttributes.color}-editor)`
-              : undefined,
-            display: 'inline-block',
-            height: '100%',
-          }
-        : {
-            color: HTMLAttributes.color
-              ? `var(--text-${HTMLAttributes.color}-editor)`
-              : undefined,
-          };
+    if (HTMLAttributes.type === "background") {
+      if (HTMLAttributes.color) {
+        styleString += ` background-color: var(--bg-${HTMLAttributes.color}-editor); display: inline-block; height: 100%;`;
+      }
+    } else {
+      if (HTMLAttributes.color) {
+        styleString += ` color: var(--text-${HTMLAttributes.color}-editor);`;
+      }
+    }
 
-    return ['span', { style: colorStyle }, 0];
+    return ["span", { style: styleString }, 0];
   },
 
   addAttributes() {
@@ -60,9 +54,14 @@ const CustomColor = Mark.create({
         },
       },
       type: {
-        default: 'text',
+        default: "text",
         parseHTML: (element) => {
-          return element.style.backgroundColor ? 'background' : 'text';
+          return element.style.backgroundColor ? "background" : "text";
+        },
+        renderHTML: (attributes) => {
+          return {
+            type: attributes.type || "text",
+          };
         },
       },
     };
