@@ -11,7 +11,6 @@ import Image from "@tiptap/extension-image";
 import Italic from "@tiptap/extension-italic";
 import Link from "@tiptap/extension-link";
 import ListItem from "@tiptap/extension-list-item";
-import { Mathematics } from "@tiptap/extension-mathematics";
 import OrderedList from "@tiptap/extension-ordered-list";
 import { Paragraph } from "@tiptap/extension-paragraph";
 import Strike from "@tiptap/extension-strike";
@@ -27,7 +26,10 @@ import CustomCard from "~/components/CustomCard";
 import CustomColor from "~/components/CustomColor";
 import CustomDate from "~/components/CustomDate";
 import CustomEmbed from "~/components/CustomEmbed";
+import CustomHighlight from "~/components/CustomHighlight";
 import Li from "~/components/CustomLi";
+import CustomMathDisplay from "~/components/CustomMathDisplay";
+import CustomMathInline from "~/components/CustomMathInline";
 import { CustomPDFCard } from "~/components/CustomPDFCard";
 import CustomSection from "~/components/CustomSection";
 import { CustomTableCell } from "~/components/CustomTableCell";
@@ -70,17 +72,13 @@ export function generateCardHTML({
           Heading,
           Strike,
           CustomColor,
-          Mathematics.extend({
-            name: "math_inline",
-          }),
-          Mathematics.extend({
-            name: "math_block",
-          }),
+          CustomMathInline,
+          CustomMathDisplay,
           ToggleListItem,
           Code,
           Blockquote,
           CustomWhiteboard.configure({ mentionInfos }),
-          CustomSection,
+          CustomSection.configure({ mentionInfos }),
           CustomEmbed.configure({ highlightData, cards, allMediaCards }),
           HardBreak.extend({
             name: "hard_break",
@@ -158,6 +156,7 @@ export function generateCardHTML({
             name: "bullet_list_item",
           }),
           CustomPDFCard.configure({ mentionInfos }),
+          CustomHighlight.configure({ mentionInfos }),
         ],
       )
     : "";

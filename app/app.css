@@ -1,6 +1,26 @@
+@import "katex/dist/katex.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Math formula styles */
+.math-inline {
+  @apply inline-block mx-1;
+}
+
+.math-display {
+  @apply block my-4 text-center;
+}
+
+.katex {
+  font-size: 1em;
+}
+
+.katex-display {
+  margin: 1em 0;
+  text-align: center;
+}
 
 body {
   font-family: Inter, Arial, Helvetica, sans-serif;
@@ -198,6 +218,7 @@ html {
     --bg-gray-editor: #e3e3dd;
 
     --map-color-svg: #3b976f;
+    --highlight-color-svg: #206bd3;
 
     --border-white-sect: hsl(0, 0%, 68%);
 
@@ -260,6 +281,7 @@ html {
     --bg-gray-editor: #9ba6bc;
 
     --map-color-svg: #4ca9ad;
+    --highlight-color-svg: #3378cf;
 
     --border-white-sect: hsl(0, 0%, 58%);
 

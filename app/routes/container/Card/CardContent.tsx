@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import hljs from "highlight.js";
+import katex from "katex";
 import { useEffect, useState } from "react";
 import { useCardIds, useHeptabaseStore } from "~/store/heptabase";
 // import ShareContent from "./ShareContent";
@@ -29,14 +30,56 @@ export default function CardContent({
   useEffect(() => {
     hljs.highlightAll();
 
+    const renderMathFormulas = () => {
+      const mathInlineElements = document.querySelectorAll(".math-inline[data-formula]");
+      const mathDisplayElements = document.querySelectorAll(".math-display[data-formula]");
+
+      mathInlineElements.forEach((element) => {
+        const formula = element.getAttribute("data-formula");
+        if (formula && !element.querySelector(".katex")) {
+          try {
+            katex.render(formula, element as HTMLElement, {
+              displayMode: false,
+              throwOnError: false,
+              output: "html",
+              strict: false,
+            });
+          } catch (error) {
+            console.warn("KaTeX inline rendering failed:", error);
+            element.textContent = `$${formula}$`;
+          }
+        }
+      });
+
+      mathDisplayElements.forEach((element) => {
+        const formula = element.getAttribute("data-formula");
+        if (formula && !element.querySelector(".katex")) {
+          try {
+            katex.render(formula, element as HTMLElement, {
+              displayMode: true,
+              throwOnError: false,
+              output: "html",
+              strict: false,
+            });
+          } catch (error) {
+            console.warn("KaTeX display rendering failed:", error);
+            element.textContent = `$$${formula}$$`;
+          }
+        }
+      });
+    };
+
     const observer = new MutationObserver(() => {
       hljs.highlightAll();
+      renderMathFormulas();
     });
 
     observer.observe(document.body, {
       childList: true,
       subtree: true,
     });
+
+    renderMathFormulas();
 
     return () => observer.disconnect();
   }, []);

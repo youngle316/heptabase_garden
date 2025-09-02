@@ -58,7 +58,7 @@ export const CustomWhiteboard = Node.create({
       [
         "span",
         {
-          class: "border-b-solid border-b border-light-grey text-middle-hard-grey",
+          class: "text-middle-hard-grey",
         },
         whiteboard?.title || "Untitled Whiteboard",
       ],

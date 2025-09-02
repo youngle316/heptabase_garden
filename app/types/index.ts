@@ -106,6 +106,7 @@ export type MentionInfo = {
   data: {
     title: string;
     id: string;
+    sourceTitle?: string;
   };
 };
 
